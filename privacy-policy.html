@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Cawa Liss</title>
+<link rel="icon" type="image/png" href="assets/cawa_logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0E0B09; }
+::-webkit-scrollbar-thumb { background: #2E2318; border-radius: 3px; }
+
+:root {
+  --obsidian:    #0E0B09;
+  --dark-earth:  #1C1510;
+  --soil:        #2E2318;
+  --bark:        #4A3728;
+  --clay:        #7A5C3E;
+  --sand:        #C4A882;
+  --gold:        #C9A96C;
+  --gold-light:  #E2C98A;
+  --gold-dim:    rgba(201,169,108,0.3);
+  --cream:       #F0E4CC;
+  --mist:        #8B7B9E;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Jost', system-ui, sans-serif;
+  --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--obsidian);
+  color: var(--sand);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 48px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, var(--obsidian) 60%, transparent);
+}
+.nav-logo {
+  display: grid;
+  align-items: center;
+  text-decoration: none;
+}
+.nav-logo img,
+.nav-logo-name {
+  grid-area: 1 / 1;
+}
+.nav-logo img {
+  height: 36px;
+  width: auto;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.nav-logo-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+  opacity: 1;
+  transition: opacity 0.5s var(--ease);
+}
+.nav-logo.scrolled img {
+  opacity: 1;
+  transform: scale(1);
+}
+.nav-logo.scrolled .nav-logo-name {
+  opacity: 0;
+}
+.nav-back {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clay);
+  text-decoration: none;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-back:hover { color: var(--gold); }
+.nav-back svg { flex-shrink: 0; }
+
+/* ── MAIN ── */
+main {
+  flex: 1;
+  padding: 140px 48px 80px;
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 16px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 6vw, 68px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.05;
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--bark);
+  padding-bottom: 40px;
+}
+
+.toc {
+  background: var(--dark-earth);
+  border: 1px solid var(--bark);
+  padding: 32px 36px;
+  margin-bottom: 56px;
+}
+.toc-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 20px;
+}
+.toc ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  counter-reset: toc-counter;
+}
+.toc ol li {
+  counter-increment: toc-counter;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.toc ol li::before {
+  content: counter(toc-counter, decimal-leading-zero);
+  font-size: 11px;
+  color: var(--mist);
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+.toc ol li a {
+  font-size: 13px;
+  color: var(--sand);
+  text-decoration: none;
+  transition: color 0.3s;
+  line-height: 1.5;
+}
+.toc ol li a:hover { color: var(--gold); }
+
+.section {
+  margin-bottom: 52px;
+  scroll-margin-top: 100px;
+}
+.section-num {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--mist);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.section p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--sand);
+  margin-bottom: 14px;
+}
+.section p:last-child { margin-bottom: 0; }
+.section ul {
+  margin: 12px 0 14px 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.section ul li {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--sand);
+  padding-left: 20px;
+  position: relative;
+}
+.section ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--mist);
+}
+.section a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.section a:hover { color: var(--gold-light); }
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--bark);
+  margin: 52px 0;
+}
+
+/* Terms section at top */
+.terms-block {
+  background: var(--dark-earth);
+  border: 1px solid var(--bark);
+  border-left: 3px solid var(--mist);
+  padding: 32px 36px;
+  margin-bottom: 56px;
+}
+.terms-block .section-title {
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark-earth);
+  border-top: 1px solid var(--bark);
+  padding: 32px 48px;
+  text-align: center;
+}
+.footer-copy {
+  font-size: 13px;
+  color: var(--clay);
+  margin-bottom: 12px;
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+.footer-links a {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clay);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--gold); }
+
+@media (max-width: 640px) {
+  nav { padding: 0 24px; }
+  main { padding: 120px 24px 60px; }
+  footer { padding: 32px 24px; }
+  .toc { padding: 24px; }
+  .terms-block { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M9 2L4 7l5 5"/>
+    </svg>
+    Back
+  </a>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/cawa_logo.png" alt="Cawa Liss">
+    <span class="nav-logo-name">Cawa Liss</span>
+  </a>
+</nav>
+
+<main>
+  <div class="page-label">Legal</div>
+  <h1 class="page-title">Privacy Policy &amp; Terms</h1>
+
+  <!-- Terms & Conditions -->
+  <div class="terms-block">
+    <div class="section-title">Terms &amp; Conditions</div>
+    <p>These Terms &amp; Conditions ("Agreement") are entered into by and between Cawa Liss, operated by Oleksandra Liss, a company registered in Germany, and the user accessing or using our website, services, or products ("Services"). By accessing or using our Services, you agree to be bound by this Agreement.</p>
+
+    <p><strong style="color:var(--cream);font-size:13px;letter-spacing:0.05em;">1. Tarot Readings for Entertainment Purposes</strong><br>
+    Cawa Liss offers tarot readings for entertainment purposes only. Our readings are not to be considered as professional advice or counseling. We do not guarantee the accuracy or effectiveness of the readings. The insights provided are based on interpretation and should be viewed as speculative and subjective.</p>
+
+    <p><strong style="color:var(--cream);font-size:13px;letter-spacing:0.05em;">2. Booking and Payment</strong><br>
+    Bookings and payments for our tarot readings are handled through a third-party reseller provider, Digistore24. By booking our services, you agree to adhere to Digistore24's terms and conditions regarding bookings, payments, and refunds.</p>
+
+    <p><strong style="color:var(--cream);font-size:13px;letter-spacing:0.05em;">3. Service Delivery</strong><br>
+    Upon booking, Cawa Liss aims to provide tarot readings within 1–2 weeks, depending on the service booked. For in-person call appointments, clients running late will not receive additional time. Any session must be canceled or rescheduled at least 24 hours in advance by contacting <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a>. Under unforeseen circumstances, if a session is cancelled by the host, the service will be fully refunded.</p>
+
+    <p><strong style="color:var(--cream);font-size:13px;letter-spacing:0.05em;">4. Direct Contact</strong><br>
+    Clients may reach out directly using the contact form on our website. Response times may vary depending on workload and other factors.</p>
+
+    <p><strong style="color:var(--cream);font-size:13px;letter-spacing:0.05em;">5. Limitation of Liability</strong><br>
+    Under no circumstances shall Cawa Liss, its affiliates, or its employees be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in any way connected with the use of our Services.</p>
+
+    <p><strong style="color:var(--cream);font-size:13px;letter-spacing:0.05em;">6. Modifications to Terms</strong><br>
+    Cawa Liss reserves the right to modify these Terms &amp; Conditions at any time. Your continued use of our Services after any modifications constitutes acceptance of those changes.</p>
+
+    <p><strong style="color:var(--cream);font-size:13px;letter-spacing:0.05em;">7. Governing Law</strong><br>
+    This Agreement shall be governed by and construed in accordance with the laws of Germany.</p>
+
+    <p><strong style="color:var(--cream);font-size:13px;letter-spacing:0.05em;">8. Contact Us</strong><br>
+    If you have any questions or concerns, please contact us via the contact form on our website or at <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a>.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Summary -->
+  <div class="section" id="summary">
+    <div class="section-num">Privacy Policy</div>
+    <div class="section-title">Summary of Key Points</div>
+    <p>This privacy notice for the "Cawa Liss" website, operated by Oleksandra Liss, describes how and why we might collect, store, use, and/or share your information when you use our Services.</p>
+    <p>Questions or concerns? Contact us at <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a>.</p>
+    <ul>
+      <li>We collect personal information that you voluntarily provide (names, phone numbers, email addresses).</li>
+      <li>We do not process sensitive personal information.</li>
+      <li>We do not receive any information from third parties.</li>
+      <li>We process your information only when we have a valid legal reason to do so.</li>
+      <li>When booking and paying, Digistore24's <a href="https://www.digistore24.com/de/home/extern/cms/page/frontend/legal/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://www.digistore24.com/page/terms" target="_blank" rel="noopener">T&amp;Cs</a> apply.</li>
+    </ul>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-label">Table of Contents</div>
+    <ol>
+      <li><a href="#infocollect">What information do we collect?</a></li>
+      <li><a href="#infouse">How do we process your information?</a></li>
+      <li><a href="#legalbases">What legal bases do we rely on?</a></li>
+      <li><a href="#whoshare">When and with whom do we share your information?</a></li>
+      <li><a href="#cookies">Do we use cookies and other tracking technologies?</a></li>
+      <li><a href="#inforetain">How long do we keep your information?</a></li>
+      <li><a href="#infosafe">How do we keep your information safe?</a></li>
+      <li><a href="#infominors">Do we collect information from minors?</a></li>
+      <li><a href="#privacyrights">What are your privacy rights?</a></li>
+      <li><a href="#DNT">Controls for Do-Not-Track features</a></li>
+      <li><a href="#caresidents">Do California residents have specific privacy rights?</a></li>
+      <li><a href="#policyupdates">Do we make updates to this notice?</a></li>
+      <li><a href="#contact">How can you contact us about this notice?</a></li>
+      <li><a href="#request">How can you review, update, or delete your data?</a></li>
+    </ol>
+  </div>
+
+  <div class="section" id="infocollect">
+    <div class="section-num">01</div>
+    <div class="section-title">What Information Do We Collect?</div>
+    <p>We collect personal information that you voluntarily provide when you express interest in our Services, participate in activities on our website, or otherwise contact us. This may include:</p>
+    <ul>
+      <li>Names</li>
+      <li>Phone numbers</li>
+      <li>Email addresses</li>
+      <li>Usernames</li>
+    </ul>
+    <p>We do not process sensitive information.</p>
+    <p>We also automatically collect certain technical information when you visit our Services — such as your IP address, browser and device characteristics, operating system, and usage data. This information does not reveal your specific identity and is primarily used for security and internal analytics purposes.</p>
+    <p>Like many businesses, we collect information through cookies and similar technologies. See our cookie notice at <a href="#">cawaliss.com/cookie-policy</a>.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="infouse">
+    <div class="section-num">02</div>
+    <div class="section-title">How Do We Process Your Information?</div>
+    <p>We process your personal information to provide and improve our Services, communicate with you, ensure security and fraud prevention, and comply with law. Specific reasons include:</p>
+    <ul>
+      <li>To deliver and facilitate delivery of services to you.</li>
+      <li>To respond to your inquiries and offer support.</li>
+      <li>To send administrative information about our products, services, and policies.</li>
+      <li>To save or protect an individual's vital interest.</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="legalbases">
+    <div class="section-num">03</div>
+    <div class="section-title">What Legal Bases Do We Rely On?</div>
+    <p>The GDPR and UK GDPR require us to explain the valid legal bases we rely on to process your personal information:</p>
+    <ul>
+      <li><strong style="color:var(--cream)">Consent.</strong> We may process your information if you have given us permission for a specific purpose. You may withdraw consent at any time.</li>
+      <li><strong style="color:var(--cream)">Performance of a Contract.</strong> We may process your information to fulfill our contractual obligations to you.</li>
+      <li><strong style="color:var(--cream)">Legal Obligations.</strong> We may process your information where necessary for compliance with our legal obligations.</li>
+      <li><strong style="color:var(--cream)">Vital Interests.</strong> We may process your information where necessary to protect your vital interests or the interests of a third party.</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="whoshare">
+    <div class="section-num">04</div>
+    <div class="section-title">When and With Whom Do We Share Your Information?</div>
+    <p>When booking our Services, you will be redirected to Digistore24 for payment, and their <a href="https://www.digistore24.com/de/home/extern/cms/page/frontend/legal/privacy" target="_blank" rel="noopener">Privacy Policy</a> and <a href="https://www.digistore24.com/page/terms" target="_blank" rel="noopener">T&amp;Cs</a> apply when you share your personal and payment information.</p>
+    <p>We may share your data with third-party vendors who perform services on our behalf, including:</p>
+    <ul>
+      <li>Data analytics services</li>
+      <li>Cloud computing services</li>
+      <li>Website hosting service providers</li>
+      <li>Performance monitoring tools</li>
+      <li>Payment processors</li>
+      <li>Data storage service providers</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="cookies">
+    <div class="section-num">05</div>
+    <div class="section-title">Do We Use Cookies?</div>
+    <p>We may use cookies and similar tracking technologies (like web beacons and pixels) to access or store information. Specific information about how we use such technologies and how you can refuse certain cookies is set out in our Cookie Notice at <a href="#">cawaliss.com/cookie-policy</a>.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="inforetain">
+    <div class="section-num">06</div>
+    <div class="section-title">How Long Do We Keep Your Information?</div>
+    <p>We will only keep your personal information for as long as necessary to fulfill the purposes outlined in this privacy notice, unless a longer retention period is required by law. When we have no ongoing legitimate business need to process your information, we will either delete or anonymize it.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="infosafe">
+    <div class="section-num">07</div>
+    <div class="section-title">How Do We Keep Your Information Safe?</div>
+    <p>We have implemented appropriate and reasonable technical and organizational security measures to protect your personal information. However, no electronic transmission over the internet can be guaranteed to be 100% secure. Transmission of personal information to and from our Services is at your own risk — please only access the Services within a secure environment.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="infominors">
+    <div class="section-num">08</div>
+    <div class="section-title">Do We Collect Information from Minors?</div>
+    <p>We do not knowingly solicit data from or market to children under 18 years of age. By using the Services, you represent that you are at least 18. If we learn that personal information from users under 18 has been collected, we will deactivate the account and take reasonable measures to promptly delete such data. Please contact us at <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a> if you become aware of any such data.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="privacyrights">
+    <div class="section-num">09</div>
+    <div class="section-title">What Are Your Privacy Rights?</div>
+    <p>In some regions (such as the EEA and UK), you have certain rights under applicable data protection laws, including the right to:</p>
+    <ul>
+      <li>Request access and obtain a copy of your personal information</li>
+      <li>Request rectification or erasure</li>
+      <li>Restrict the processing of your personal information</li>
+      <li>Data portability (where applicable)</li>
+      <li>Object to the processing of your personal information</li>
+    </ul>
+    <p>To exercise these rights, contact us at <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a>. If you are in the EEA or UK and believe we are unlawfully processing your data, you have the right to complain to your <a href="https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm" target="_blank" rel="noopener">Member State data protection authority</a>.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="DNT">
+    <div class="section-num">10</div>
+    <div class="section-title">Controls for Do-Not-Track Features</div>
+    <p>Most web browsers include a Do-Not-Track ("DNT") feature. At this stage, no uniform technology standard for recognizing and implementing DNT signals has been finalized. As such, we do not currently respond to DNT browser signals. If a standard is adopted that we must follow, we will inform you in a revised version of this notice.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="caresidents">
+    <div class="section-num">11</div>
+    <div class="section-title">Do California Residents Have Specific Privacy Rights?</div>
+    <p>California Civil Code Section 1798.83 ("Shine The Light" law) permits California residents to request, once a year and free of charge, information about categories of personal information disclosed to third parties for direct marketing purposes. To make such a request, please contact us in writing using the details below.</p>
+    <p>If you are under 18 years of age, reside in California, and have a registered account with our Services, you have the right to request removal of unwanted data you have publicly posted. Contact us at <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a> and include your email address and a statement that you reside in California.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="policyupdates">
+    <div class="section-num">12</div>
+    <div class="section-title">Do We Make Updates to This Notice?</div>
+    <p>We may update this privacy notice from time to time. The updated version will be effective as soon as it is accessible. If we make material changes, we may notify you by posting a prominent notice or by sending a direct notification. We encourage you to review this notice frequently.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="contact">
+    <div class="section-num">13</div>
+    <div class="section-title">How Can You Contact Us?</div>
+    <p>If you have questions or comments about this notice, you may email us at <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a>.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="request">
+    <div class="section-num">14</div>
+    <div class="section-title">How Can You Review, Update, or Delete Your Data?</div>
+    <p>You have the right to request access to, changes to, or deletion of the personal information we collect from you. To submit a request, please email us at <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a>.</p>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-copy">© 2024 Oleksandra Liss</div>
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+  const logo = document.querySelector('.nav-logo');
+  window.addEventListener('scroll', () => {
+    logo.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+</script>
+</body>
+</html>

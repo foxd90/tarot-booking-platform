@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impressum — Cawa Liss</title>
+<link rel="icon" type="image/png" href="assets/cawa_logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0E0B09; }
+::-webkit-scrollbar-thumb { background: #2E2318; border-radius: 3px; }
+
+:root {
+  --obsidian:    #0E0B09;
+  --dark-earth:  #1C1510;
+  --soil:        #2E2318;
+  --bark:        #4A3728;
+  --clay:        #7A5C3E;
+  --sand:        #C4A882;
+  --gold:        #C9A96C;
+  --gold-light:  #E2C98A;
+  --gold-dim:    rgba(201,169,108,0.3);
+  --cream:       #F0E4CC;
+  --parchment:   #F8F0E3;
+  --mist:        #8B7B9E;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Jost', system-ui, sans-serif;
+  --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--obsidian);
+  color: var(--sand);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 48px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, var(--obsidian) 60%, transparent);
+}
+.nav-logo {
+  display: grid;
+  align-items: center;
+  text-decoration: none;
+}
+.nav-logo img,
+.nav-logo-name {
+  grid-area: 1 / 1;
+}
+.nav-logo img {
+  height: 36px;
+  width: auto;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.nav-logo-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+  opacity: 1;
+  transition: opacity 0.5s var(--ease);
+}
+.nav-logo.scrolled img {
+  opacity: 1;
+  transform: scale(1);
+}
+.nav-logo.scrolled .nav-logo-name {
+  opacity: 0;
+}
+.nav-back {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clay);
+  text-decoration: none;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-back:hover { color: var(--gold); }
+.nav-back svg { flex-shrink: 0; }
+
+/* ── MAIN ── */
+main {
+  flex: 1;
+  padding: 140px 48px 80px;
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.page-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 16px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 6vw, 68px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.05;
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--bark);
+  padding-bottom: 40px;
+}
+
+.section {
+  margin-bottom: 48px;
+}
+
+.section-title {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 16px;
+}
+
+.section p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--sand);
+  margin-bottom: 8px;
+}
+
+.section a {
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.section a:hover { color: var(--gold-light); }
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--bark);
+  margin: 48px 0;
+}
+
+.stand {
+  font-size: 13px;
+  color: var(--clay);
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--bark);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark-earth);
+  border-top: 1px solid var(--bark);
+  padding: 32px 48px;
+  text-align: center;
+}
+.footer-copy {
+  font-size: 13px;
+  color: var(--clay);
+  margin-bottom: 12px;
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+.footer-links a {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clay);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--gold); }
+
+@media (max-width: 640px) {
+  nav { padding: 0 24px; }
+  main { padding: 120px 24px 60px; }
+  footer { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M9 2L4 7l5 5"/>
+    </svg>
+    Back
+  </a>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/cawa_logo.png" alt="Cawa Liss">
+    <span class="nav-logo-name">Cawa Liss</span>
+  </a>
+</nav>
+
+<main>
+  <div class="page-label">Legal</div>
+  <h1 class="page-title">Impressum</h1>
+
+  <div class="section">
+    <div class="section-title">Angaben gemäß § 5 TMG</div>
+    <p>Oleksandra Liss</p>
+    <p>Hübnerstr. 4<br>10247 Berlin</p>
+    <p><a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a></p>
+    <p>+49 160 99041313</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-title">Umsatzsteuer</div>
+    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br>14/422/09256</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-title">Zahlungsanbieter und Vertragspartner</div>
+    <p>Digistore24 GmbH ist der alleinige Vertragspartner der Kunden von Oleksandra Liss.</p>
+    <p>
+      Digistore24 GmbH<br>
+      St.-Godehard-Straße 32<br>
+      31139 Hildesheim<br>
+      Deutschland
+    </p>
+    <p>E-Mail: <a href="mailto:support@digistore24.com">support@digistore24.com</a></p>
+    <p><a href="https://www.digistore24.com/page/imprint" target="_blank" rel="noopener">https://www.digistore24.com/page/imprint</a></p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-title">Haftungsausschluss</div>
+    <p>Die Inhalte dieser Website dienen ausschließlich Unterhaltungszwecken. Die angebotenen Tarot-Konsultationen sind nicht als medizinische oder rechtliche Beratung zu verstehen. Die Nutzung der Informationen auf dieser Website erfolgt auf eigene Verantwortung.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-title">Urheberrecht</div>
+    <p>Die Inhalte dieser Website, einschließlich Texte und Bilder, sind urheberrechtlich geschützt. Jegliche Nutzung ohne schriftliche Genehmigung ist untersagt.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-title">Datenschutz</div>
+    <p>Für Informationen zum Datenschutz verweisen wir auf unsere <a href="privacy-policy.html">Datenschutzerklärung</a>.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-title">Streitschlichtung</div>
+    <p>Hinweis gemäß § 36 Verbraucherstreitbeilegungsgesetz (VSBG): Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+  </div>
+
+  <p class="stand">Stand: 11.03.2024</p>
+</main>
+
+<footer>
+  <div class="footer-copy">© 2024 Oleksandra Liss</div>
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+  const logo = document.querySelector('.nav-logo');
+  window.addEventListener('scroll', () => {
+    logo.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+</script>
+</body>
+</html>
