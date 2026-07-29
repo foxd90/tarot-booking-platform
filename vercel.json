@@ -1,4 +1,10 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/service-descriptions/clarity", "destination": "/clarity", "permanent": true },
+    { "source": "/service-descriptions/sunlit-sojourn", "destination": "/sunlit-sojourn", "permanent": true },
+    { "source": "/service-descriptions/divine-blueprint", "destination": "/divine-blueprint", "permanent": true },
+    { "source": "/service-descriptions", "destination": "/#services", "permanent": true }
+  ]
 }
