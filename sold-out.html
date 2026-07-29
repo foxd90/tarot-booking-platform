@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sold Out — Cawa Liss</title>
+<link rel="icon" type="image/png" href="assets/cawa_logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0E0B09; }
+::-webkit-scrollbar-thumb { background: #2E2318; border-radius: 3px; }
+
+:root {
+  --obsidian:    #0E0B09;
+  --dark-earth:  #1C1510;
+  --soil:        #2E2318;
+  --bark:        #4A3728;
+  --clay:        #7A5C3E;
+  --sand:        #C4A882;
+  --gold:        #C9A96C;
+  --gold-light:  #E2C98A;
+  --gold-dim:    rgba(201,169,108,0.3);
+  --cream:       #F0E4CC;
+  --mist:        #8B7B9E;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Jost', system-ui, sans-serif;
+  --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--obsidian);
+  color: var(--sand);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 48px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, var(--obsidian) 60%, transparent);
+}
+.nav-back {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clay);
+  text-decoration: none;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-back:hover { color: var(--gold); }
+.nav-back svg { flex-shrink: 0; }
+.nav-logo {
+  display: grid;
+  align-items: center;
+  text-decoration: none;
+}
+.nav-logo img,
+.nav-logo-name { grid-area: 1 / 1; }
+.nav-logo img {
+  height: 36px;
+  width: auto;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.nav-logo-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.04em;
+  opacity: 1;
+  transition: opacity 0.5s var(--ease);
+}
+.nav-logo.scrolled img { opacity: 1; transform: scale(1); }
+.nav-logo.scrolled .nav-logo-name { opacity: 0; }
+
+/* ── MAIN ── */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 48px 100px;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mark {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 36px;
+  opacity: 0.9;
+}
+.mark img { width: 100%; height: 100%; object-fit: contain; }
+
+.page-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 24px;
+}
+.sold-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 7vw, 72px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+  margin-bottom: 28px;
+}
+.hero-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 0 auto 28px;
+}
+.sold-sub {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.7vw, 18px);
+  font-weight: 300;
+  color: var(--sand);
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0 auto 44px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.btn-ghost {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream);
+  border: 1px solid var(--gold);
+  padding: 14px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.35s var(--ease);
+}
+.btn-ghost:hover {
+  background: rgba(201,169,108,0.12);
+  color: var(--gold-light);
+  box-shadow: 0 0 28px rgba(201,169,108,0.15);
+}
+.btn-quiet {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sand);
+  border: 1px solid var(--bark);
+  padding: 14px 36px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.3s var(--ease);
+}
+.btn-quiet:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+
+/* ── CONTACT CARD ── */
+.contact-card {
+  width: 100%;
+  max-width: 560px;
+  margin: 64px auto 0;
+  background: var(--dark-earth);
+  border: 1px solid var(--bark);
+  border-left: 3px solid var(--mist);
+  padding: 40px 40px 44px;
+  text-align: left;
+}
+.contact-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 12px;
+}
+.contact-title {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.contact-intro {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--sand);
+  margin-bottom: 28px;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.field { margin-bottom: 18px; }
+.field label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mist);
+  margin-bottom: 8px;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--cream);
+  background: var(--obsidian);
+  border: 1px solid var(--bark);
+  border-radius: 2px;
+  padding: 12px 14px;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.field textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+.field input::placeholder,
+.field textarea::placeholder { color: var(--clay); }
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--gold-dim);
+  box-shadow: 0 0 0 3px rgba(201,169,108,0.08);
+}
+.btn-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--obsidian);
+  background: var(--gold);
+  border: none;
+  cursor: pointer;
+  padding: 15px 40px;
+  border-radius: 2px;
+  transition: all 0.3s var(--ease);
+  margin-top: 6px;
+}
+.btn-send:hover { background: var(--gold-light); transform: scale(0.99); }
+.form-note {
+  font-size: 12px;
+  color: var(--clay);
+  line-height: 1.6;
+  margin-top: 16px;
+  text-align: center;
+}
+.form-note a { color: var(--gold); text-decoration: none; transition: color 0.3s; }
+.form-note a:hover { color: var(--gold-light); }
+.form-error {
+  display: none;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #E0A489;
+  background: rgba(224,164,137,0.08);
+  border: 1px solid rgba(224,164,137,0.28);
+  border-radius: 2px;
+  padding: 12px 14px;
+  margin-top: 16px;
+}
+.form-error.show { display: block; }
+.form-error a { color: var(--gold-light); text-decoration: none; }
+.btn-send:disabled { opacity: 0.6; cursor: default; transform: none; }
+.thanks {
+  display: none;
+  text-align: center;
+  padding: 20px 0 4px;
+}
+.thanks.show { display: block; }
+.thanks-icon {
+  font-family: var(--font-display);
+  font-size: 44px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.thanks p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--sand);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark-earth);
+  border-top: 1px solid var(--bark);
+  padding: 32px 48px;
+  text-align: center;
+}
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--clay);
+  margin-bottom: 12px;
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.footer-links a {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--clay);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-smallprint {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(74,55,40,0.4);
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--bark);
+  line-height: 1.6;
+}
+.footer-smallprint a { color: var(--clay); text-decoration: none; }
+.footer-smallprint a:hover { color: var(--gold); }
+
+@media (max-width: 640px) {
+  nav { padding: 0 24px; }
+  main { padding: 120px 24px 72px; }
+  footer { padding: 32px 24px; }
+  .contact-card { padding: 32px 24px 36px; }
+  .field-row { grid-template-columns: 1fr; gap: 0; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M9 2L4 7l5 5"/>
+    </svg>
+    Back
+  </a>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/cawa_logo.png" alt="Cawa Liss">
+    <span class="nav-logo-name">Cawa Liss</span>
+  </a>
+</nav>
+
+<main>
+  <div class="mark"><img src="assets/cawa_logo.png" alt=""></div>
+  <div class="page-label">Fully Booked</div>
+  <h1 class="sold-title">We're currently sold out</h1>
+  <div class="hero-divider"></div>
+  <p class="sold-sub">Every reading is given my full presence, so places are limited. New capacity opens soon — leave a note below and I'll reach out the moment a space becomes available. Thank you for your patience and interest.</p>
+
+  <div class="actions">
+    <a href="index.html#services" class="btn-ghost">View the Readings</a>
+    <a href="index.html" class="btn-quiet">Return Home</a>
+  </div>
+
+  <div class="contact-card">
+    <div class="contact-label">Stay in Touch</div>
+    <div class="contact-title">Ask to be notified</div>
+    <p class="contact-intro">Wait until more capacity opens, or reach out proactively below — I appreciate your interest in the work.</p>
+
+    <form id="contact-form" novalidate>
+      <div class="field-row">
+        <div class="field">
+          <label for="first">First Name</label>
+          <input type="text" id="first" name="first" placeholder="Your first name" required>
+        </div>
+        <div class="field">
+          <label for="last">Last Name</label>
+          <input type="text" id="last" name="last" placeholder="Your last name" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@email.com" required>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Which reading you're hoping for, and anything you'd like me to know…" required></textarea>
+      </div>
+      <button type="submit" class="btn-send">Send</button>
+      <div class="form-error" id="form-error"></div>
+      <p class="form-note">Prefer email? Write to <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a></p>
+    </form>
+
+    <div class="thanks" id="thanks">
+      <div class="thanks-icon">✦</div>
+      <p>Thanks for submitting — your message is on its way. I'll be in touch as soon as a place opens.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-copy">© 2024 Oleksandra Liss</div>
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a>
+    <a href="privacy-policy.html">Privacy Policy &amp; T&amp;C</a>
+  </div>
+  <div class="footer-smallprint">
+    Payments and service delivery processed by Digistore24 GmbH (Germany). See Digistore24's
+    <a href="https://www.digistore24.com/de/home/extern/cms/page/frontend/legal/privacy" target="_blank" rel="noopener">Privacy Policy</a> and
+    <a href="https://www.digistore24.com/page/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>.
+  </div>
+</footer>
+
+<script>
+  // Nav logo swap on scroll (matches the rest of the site)
+  const logo = document.querySelector('.nav-logo');
+  window.addEventListener('scroll', () => {
+    logo.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Contact form → POSTs to the Vercel serverless function (/api/contact),
+  // which emails the submission. Falls back to the visitor's mail client if the
+  // function can't be reached (e.g. previewing the static file with no backend).
+  const form = document.getElementById('contact-form');
+  const thanks = document.getElementById('thanks');
+  const errorBox = document.getElementById('form-error');
+  const sendBtn = form.querySelector('.btn-send');
+
+  function mailtoFallback(d) {
+    const subject = encodeURIComponent('Notify me when a reading opens — ' + d.first + ' ' + d.last);
+    const body = encodeURIComponent(d.message + '\n\n—\nFrom: ' + d.first + ' ' + d.last + '\nEmail: ' + d.email);
+    window.location.href = 'mailto:cawalis.spirit@gmail.com?subject=' + subject + '&body=' + body;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const data = {
+      first: document.getElementById('first').value.trim(),
+      last: document.getElementById('last').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      message: document.getElementById('message').value.trim(),
+    };
+
+    errorBox.classList.remove('show');
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        thanks.classList.add('show');
+        return;
+      }
+
+      // The function ran but rejected the request (validation, service error, etc.)
+      let msg = 'Could not send your message.';
+      try { const j = await res.json(); if (j && j.error) msg = j.error; } catch (_) {}
+      errorBox.innerHTML = msg + ' You can also email <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a>.';
+      errorBox.classList.add('show');
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'Send';
+    } catch (err) {
+      // Network/function unreachable — fall back to the visitor's email client.
+      mailtoFallback(data);
+      form.style.display = 'none';
+      thanks.classList.add('show');
+    }
+  });
+</script>
+</body>
+</html>
