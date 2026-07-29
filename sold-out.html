@@ -494,18 +494,29 @@ footer {
       });
 
       if (res.ok) {
+        // Server-side email sent (Resend configured).
         form.style.display = 'none';
         thanks.classList.add('show');
         return;
       }
 
-      // The function ran but rejected the request (validation, service error, etc.)
-      let msg = 'Could not send your message.';
-      try { const j = await res.json(); if (j && j.error) msg = j.error; } catch (_) {}
-      errorBox.innerHTML = msg + ' You can also email <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a>.';
-      errorBox.classList.add('show');
-      sendBtn.disabled = false;
-      sendBtn.textContent = 'Send';
+      if (res.status === 400) {
+        // Genuine validation problem — show it inline, don't fall back.
+        let msg = 'Please check your details and try again.';
+        try { const j = await res.json(); if (j && j.error) msg = j.error; } catch (_) {}
+        errorBox.innerHTML = msg + ' You can also email <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a>.';
+        errorBox.classList.add('show');
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Send';
+        return;
+      }
+
+      // Backend not configured / service error — fall back to the mail client
+      // so the visitor can still reach out. (Auto-upgrades to server-side once
+      // RESEND_API_KEY is set and the function returns 200.)
+      mailtoFallback(data);
+      form.style.display = 'none';
+      thanks.classList.add('show');
     } catch (err) {
       // Network/function unreachable — fall back to the visitor's email client.
       mailtoFallback(data);
