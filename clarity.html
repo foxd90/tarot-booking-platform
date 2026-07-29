@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<link rel="icon" type="image/png" href="assets/cawa_logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clarity — Cawa Liss Tarot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:#0E0B09;}
+::-webkit-scrollbar-thumb{background:#2E2318;border-radius:3px;}
+
+:root{
+  --obsidian:#0E0B09;
+  --dark-earth:#1C1510;
+  --soil:#2E2318;
+  --bark:#4A3728;
+  --clay:#7A5C3E;
+  --sand:#C4A882;
+  --gold:#C9A96C;
+  --gold-light:#E2C98A;
+  --gold-dim:rgba(201,169,108,0.3);
+  --cream:#F0E4CC;
+  --midnight:#07101F;
+  --mist:#8B7B9E;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-body:'Jost',system-ui,sans-serif;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+}
+
+body{font-family:var(--font-body);background:var(--obsidian);color:var(--sand);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 48px;height:72px;transition:background 0.4s var(--ease),backdrop-filter 0.4s var(--ease);border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(14,11,9,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-color:rgba(74,55,40,0.4);}
+.nav-logo{display:grid;align-items:center;text-decoration:none;justify-self:center;}
+.nav-logo img,.nav-logo-name{grid-area:1/1;}
+.nav-logo img{height:32px;width:auto;opacity:0;transform:scale(0.85);transition:opacity 0.5s var(--ease),transform 0.5s var(--ease);}
+.nav-logo-name{font-family:var(--font-display);font-size:19px;font-weight:400;color:var(--cream);letter-spacing:0.04em;opacity:1;transition:opacity 0.5s var(--ease);}
+.nav-logo.scrolled img{opacity:1;transform:scale(1);}
+.nav-logo.scrolled .nav-logo-name{opacity:0;}
+.nav-back{font-family:var(--font-body);font-size:12px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--clay);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color 0.3s;justify-self:start;}
+.nav-back:hover{color:var(--gold);}
+.nav-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.nav-cta{font-family:var(--font-body);font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--obsidian);background:var(--gold);padding:10px 24px;border-radius:2px;text-decoration:none;transition:all 0.3s var(--ease);opacity:0;pointer-events:none;justify-self:end;}
+.nav-cta.visible{opacity:1;pointer-events:auto;}
+.nav-cta:hover{background:var(--gold-light);}
+
+/* HERO */
+#hero{position:relative;width:100%;min-height:380px;height:auto;max-height:440px;padding:100px 0 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+#smoke-canvas{position:absolute;inset:0;width:100%;height:100%;}
+.hero-glow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:20px;padding:0 24px;max-width:800px;}
+.hero-price-tag{font-family:var(--font-body);font-size:11px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-light);background:rgba(139,123,158,0.15);border:1px solid rgba(139,123,158,0.4);padding:6px 16px;border-radius:2px;}
+.hero-title{font-family:var(--font-display);font-size:clamp(44px,7vw,88px);font-weight:300;color:var(--cream);line-height:1;letter-spacing:-0.03em;text-shadow:0 2px 40px rgba(14,11,9,0.8);}
+.hero-subtitle{font-family:var(--font-display);font-size:clamp(18px,2.5vw,26px);font-style:italic;font-weight:300;color:var(--sand);line-height:1.4;max-width:520px;text-shadow:0 1px 20px rgba(14,11,9,0.9);}
+.hero-price{font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:300;color:var(--gold);letter-spacing:-0.02em;}
+.btn-book{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:13px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--obsidian);background:var(--gold);padding:16px 40px;border-radius:2px;text-decoration:none;transition:all 0.3s var(--ease);margin-top:8px;}
+.btn-book:hover{background:var(--gold-light);transform:scale(0.98);}
+.hero-divider{width:40px;height:1px;background:var(--gold-dim);}
+
+/* CONTENT */
+.page-content{max-width:1100px;margin:0 auto;padding:80px 48px;}
+.section-divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);}
+.content-section{padding:64px 0;border-bottom:1px solid var(--soil);}
+.content-section:last-of-type{border-bottom:none;}
+.section-label{font-family:var(--font-body);font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--mist);margin-bottom:12px;}
+.section-heading{font-family:var(--font-display);font-size:clamp(28px,3.5vw,42px);font-weight:300;color:var(--cream);line-height:1.1;letter-spacing:-0.02em;margin-bottom:28px;}
+.body-text{font-family:var(--font-body);font-size:16px;font-weight:300;color:var(--sand);line-height:1.85;max-width:68ch;}
+.body-text+.body-text{margin-top:16px;}
+.body-text em{color:var(--cream);font-style:italic;}
+
+/* 2-COL LAYOUT */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+.two-col.wide-left{grid-template-columns:1.4fr 1fr;}
+
+/* TAB TOGGLE */
+.tab-toggle{margin-top:32px;}
+.tab-buttons{display:flex;border:1px solid var(--bark);border-radius:2px;overflow:hidden;width:fit-content;margin-bottom:28px;}
+.tab-btn{font-family:var(--font-body);font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--clay);background:none;border:none;padding:10px 28px;cursor:pointer;transition:all 0.3s var(--ease);}
+.tab-btn.active{background:var(--soil);color:var(--gold);}
+.tab-btn:hover:not(.active){color:var(--sand);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+.delivery-list{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:8px;}
+.delivery-list li{font-family:var(--font-body);font-size:15px;font-weight:300;color:var(--sand);line-height:1.7;padding-left:18px;position:relative;}
+.delivery-list li::before{content:'';position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--gold);}
+.delivery-item-label{color:var(--cream);font-weight:400;}
+
+/* EXAMPLES BLOCK */
+.examples-block{background:var(--dark-earth);border:1px solid var(--gold-dim);border-radius:4px;padding:28px 32px;margin-top:24px;}
+.examples-label{font-family:var(--font-body);font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.example-item{font-family:var(--font-display);font-size:18px;font-style:italic;font-weight:300;color:var(--cream);line-height:1.5;padding:10px 0;border-bottom:1px solid var(--bark);}
+.example-item:last-child{border-bottom:none;padding-bottom:0;}
+.example-item::before{content:'"';color:var(--gold-dim);}
+.example-item::after{content:'"';color:var(--gold-dim);}
+
+/* AVOID BLOCK */
+.avoid-block{background:rgba(14,11,9,0.6);border:1px solid rgba(74,55,40,0.4);border-left:2px solid rgba(201,169,108,0.3);border-radius:2px;padding:20px 24px;margin-top:16px;}
+.avoid-block p{font-family:var(--font-body);font-size:14px;font-weight:300;color:var(--clay);line-height:1.7;}
+.avoid-block strong{color:var(--sand);font-weight:400;}
+
+/* RETURN POLICY */
+.return-badge{display:inline-flex;align-items:center;gap:8px;margin-top:8px;}
+.return-badge svg{width:14px;height:14px;stroke:var(--clay);fill:none;stroke-width:1.5;flex-shrink:0;}
+.return-badge span{font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--clay);}
+
+/* SIDEBAR CARD */
+.info-card{background:var(--dark-earth);border:1px solid var(--bark);border-radius:4px;padding:32px 28px;position:sticky;top:100px;}
+.info-card-price{font-family:var(--font-display);font-size:52px;font-weight:300;color:var(--gold);letter-spacing:-0.03em;line-height:1;margin-bottom:4px;}
+.info-card-name{font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--cream);margin-bottom:20px;}
+.info-card-divider{height:1px;background:var(--bark);margin:20px 0;}
+.info-card-detail{font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--clay);line-height:1.6;margin-bottom:8px;}
+.info-card-detail strong{color:var(--sand);font-weight:400;}
+.btn-book-card{display:flex;align-items:center;justify-content:center;font-family:var(--font-body);font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--obsidian);background:var(--gold);padding:14px 24px;border-radius:2px;text-decoration:none;transition:all 0.3s var(--ease);margin-top:24px;width:100%;}
+.btn-book-card:hover{background:var(--gold-light);}
+
+/* BOTTOM CTA */
+.bottom-cta{background:var(--dark-earth);border-top:1px solid var(--soil);padding:48px;text-align:center;}
+.bottom-cta-text{font-family:var(--font-body);font-size:12px;font-weight:300;color:var(--clay);line-height:1.7;}
+.bottom-cta-text a{color:rgba(201,169,108,0.6);text-decoration:none;transition:color 0.3s;}
+.bottom-cta-text a:hover{color:var(--gold);}
+
+/* FOOTER */
+footer{background:var(--dark-earth);border-top:1px solid var(--bark);padding:48px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:center;margin-bottom:32px;}
+.footer-copy{font-family:var(--font-body);font-size:13px;color:var(--clay);}
+.footer-links{display:flex;gap:24px;justify-content:center;}
+.footer-links a{font-family:var(--font-body);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--clay);text-decoration:none;transition:color 0.3s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-smallprint{max-width:1100px;margin:0 auto;padding-top:28px;border-top:1px solid rgba(74,55,40,0.4);font-family:var(--font-body);font-size:11px;color:var(--bark);text-align:center;line-height:1.6;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s var(--ease),transform 0.6s var(--ease);}
+.reveal.revealed{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  nav{padding:0 24px;}
+  .page-content{padding:60px 24px;}
+  .two-col,.two-col.wide-left{grid-template-columns:1fr;}
+  .info-card{position:static;margin-top:32px;}
+  .footer-inner{grid-template-columns:1fr;text-align:center;gap:16px;}
+  .footer-links{flex-wrap:wrap;justify-content:center;}
+  .bottom-cta{padding:36px 24px;}
+}
+@media(max-width:480px){
+  .page-content{padding:48px 20px;}
+  .content-section{padding:48px 0;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    All readings
+  </a>
+  <a href="index.html" class="nav-logo">
+    <img src="assets/cawa_logo.png" alt="Cawa Liss">
+    <span class="nav-logo-name">Cawa Liss</span>
+  </a>
+  <a href="index.html" class="nav-cta">Home</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="smoke-canvas"></canvas>
+  <canvas class="hero-glow" id="hero-glow-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-price-tag">Single Reading · €110</div>
+    <h1 class="hero-title">Clarity</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">A tarot reading for a specific question or area of life</p>
+    <a href="https://www.checkout-ds24.com/product/540109" target="_blank" rel="noopener" class="btn-book">Book This Reading</a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- MAIN CONTENT -->
+<div class="page-content">
+
+  <!-- ABOUT + SIDEBAR -->
+  <div class="content-section two-col wide-left reveal">
+    <div>
+      <div class="section-label">About this service</div>
+      <h2 class="section-heading">What is a Clarity reading?</h2>
+      <p class="body-text">By default this is a remote service. If you'd prefer an in-person call with Cawa, simply specify it in the booking description.</p>
+      <p class="body-text" style="margin-top:16px;">This reading is designed to shed light on a specific, timely question in a particular area of life — for example: <em>"Why is my dating life challenging and how to make it better?"</em> or <em>"What is the source of my anxiety and how best to support myself?"</em></p>
+      <p class="body-text" style="margin-top:16px;">As many cards as necessary will be drawn to gain a clear overview and guidance. Minimum 3 cards.</p>
+    </div>
+    <div>
+      <div class="info-card">
+        <div class="info-card-price">€110</div>
+        <div class="info-card-name">Clarity Reading</div>
+        <div class="info-card-divider"></div>
+        <div class="info-card-detail"><strong>Format</strong> — Remote (default) or in-person</div>
+        <div class="info-card-detail"><strong>Delivery</strong> — Audio + PDF</div>
+        <div class="info-card-detail"><strong>Cards</strong> — Minimum 3</div>
+        <div class="info-card-detail"><strong>Returns</strong> — 60-day window</div>
+        <a href="https://www.checkout-ds24.com/product/540109" target="_blank" rel="noopener" class="btn-book-card">Book Now</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT TO EXPECT -->
+  <div class="content-section reveal">
+    <div class="section-label">Delivery</div>
+    <h2 class="section-heading">What to Expect</h2>
+    <p class="body-text">Your booking will be reviewed within 1–2 working days. If there are any concerns about your question, we'll reach out via the email you provided.</p>
+    <div class="tab-toggle">
+      <div class="tab-buttons">
+        <button class="tab-btn active" data-tab="remote">Remote</button>
+        <button class="tab-btn" data-tab="inperson">In-Person</button>
+      </div>
+      <div class="tab-pane active" id="tab-remote">
+        <ul class="delivery-list">
+          <li><span class="delivery-item-label">Timeline —</span> Reading delivered within 1 week</li>
+          <li><span class="delivery-item-label">Audio —</span> 15–25 minute recording</li>
+          <li><span class="delivery-item-label">PDF —</span> Card photos and descriptions included</li>
+        </ul>
+      </div>
+      <div class="tab-pane" id="tab-inperson">
+        <ul class="delivery-list">
+          <li><span class="delivery-item-label">Booking —</span> A call booking link sent within 1–2 working days</li>
+          <li><span class="delivery-item-label">After the call —</span> Recording and PDF provided</li>
+        </ul>
+        <p class="body-text" style="margin-top:16px;font-size:14px;">To request in-person, specify this in your booking description.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW TO ASK -->
+  <div class="content-section reveal">
+    <div class="section-label">Your question</div>
+    <h2 class="section-heading">How to Ask a Good Question</h2>
+    <p class="body-text">Clearly state your question in the booking form. You don't need to share every detail — just indicate the area and what you'd like explored.</p>
+
+    <div class="examples-block">
+      <div class="examples-label">Good examples</div>
+      <div class="example-item">Challenges in my love life and how to overcome them.</div>
+      <div class="example-item">How can I be more successful at work and earn a promotion?</div>
+      <div class="example-item">Which of my pursuits — teaching, writing, or astrology — will bring the most fulfilment?</div>
+    </div>
+
+    <div class="avoid-block" style="margin-top:20px;">
+      <p><strong>What to avoid:</strong> Questions about other people's feelings or fixed future outcomes. If your question needs refinement, we'll be in touch with alternatives.</p>
+    </div>
+  </div>
+
+  <!-- RETURN POLICY -->
+  <div class="content-section reveal">
+    <div class="section-label">Policy</div>
+    <h2 class="section-heading">Return Policy</h2>
+    <div class="return-badge">
+      <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><polyline points="12 7 12 12 15 15"/></svg>
+      <span style="font-size: 16px">60-day return window after payment</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <p class="bottom-cta-text"><em>By booking you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="privacy-policy.html">Terms &amp; Conditions</a></em></p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-copy">© 2024 Oleksandra Liss</div>
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </div>
+    <div></div>
+  </div>
+  <div class="footer-smallprint">Payments and service delivery processed by Digistore24 GmbH (Germany).</div>
+</footer>
+
+<script>
+/* SMOKE CANVAS */
+(function(){
+  const canvas=document.getElementById('smoke-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H;
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  const orbs=Array.from({length:6},(_,i)=>{
+    const palette=[[201,169,108],[201,169,108],[44,74,106],[26,14,28],[139,123,158],[180,130,80]];
+    const c=palette[i];
+    return{cx:0.2+Math.random()*0.6,cy:0.2+Math.random()*0.6,r:0.28+Math.random()*0.32,color:c,alphaBase:0.05+Math.random()*0.07,pulsePhase:Math.random()*Math.PI*2,pulseSpeed:0.00045+Math.random()*0.0003,pulseDepth:0.3+Math.random()*0.25,rPulsePhase:Math.random()*Math.PI*2,rPulseSpeed:0.00035+Math.random()*0.00025,speedX:(Math.random()-0.5)*0.0006,speedY:(Math.random()-0.5)*0.00045,drift:Math.random()*Math.PI*2,driftSpeed:0.000175+Math.random()*0.000125};
+  });
+  let last=0;
+  function draw(ts){
+    const dt=Math.min(ts-last,50);last=ts;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#0E0B09';ctx.fillRect(0,0,W,H);
+    for(const o of orbs){
+      o.drift+=o.driftSpeed*dt;o.pulsePhase+=o.pulseSpeed*dt;o.rPulsePhase+=o.rPulseSpeed*dt;
+      o.cx+=o.speedX*dt+Math.sin(o.drift)*0.00009;
+      o.cy+=o.speedY*dt+Math.cos(o.drift*0.6)*0.00007;
+      if(o.cx<0.08||o.cx>0.92)o.speedX*=-0.98;
+      if(o.cy<0.08||o.cy>0.92)o.speedY*=-0.98;
+      o.cx=Math.max(0.08,Math.min(0.92,o.cx));
+      o.cy=Math.max(0.08,Math.min(0.92,o.cy));
+      const pulse=1+o.pulseDepth*Math.sin(o.pulsePhase);
+      const rp=1+(0.08+Math.random()*0.01)*Math.sin(o.rPulsePhase);
+      const alpha=o.alphaBase*pulse;
+      const r=o.r*rp*Math.min(W,H);
+      const x=o.cx*W,y=o.cy*H;
+      const grd=ctx.createRadialGradient(x,y,0,x,y,r);
+      const[R,G,B]=o.color;
+      grd.addColorStop(0,`rgba(${R},${G},${B},${alpha})`);
+      grd.addColorStop(0.45,`rgba(${R},${G},${B},${alpha*0.35})`);
+      grd.addColorStop(1,`rgba(${R},${G},${B},0)`);
+      ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
+    }
+    const vig=ctx.createRadialGradient(W/2,H/2,H*0.1,W/2,H/2,H*0.8);
+    vig.addColorStop(0,'rgba(14,11,9,0)');vig.addColorStop(0.7,'rgba(14,11,9,0.3)');vig.addColorStop(1,'rgba(14,11,9,0.7)');
+    ctx.fillStyle=vig;ctx.fillRect(0,0,W,H);
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* HERO GLOW */
+(function(){
+  const canvas=document.getElementById('hero-glow-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H;
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;}
+  resize();window.addEventListener('resize',resize);
+  const orbs=[
+    {ox:0.0,oy:0.0,r:0.55,phase:0.0,pSpeed:0.00066,drift:0.0,driftS:0.00036,color:[201,155,80],alpha:0.30},
+    {ox:0.18,oy:0.10,r:0.50,phase:1.4,pSpeed:0.00084,drift:2.2,driftS:0.00027,color:[220,175,100],alpha:0.24},
+    {ox:-0.2,oy:0.18,r:0.52,phase:2.8,pSpeed:0.00054,drift:4.0,driftS:0.00042,color:[180,120,60],alpha:0.26},
+  ];
+  let last=0;
+  function draw(ts){
+    const dt=Math.min(ts-last,50);last=ts;
+    ctx.clearRect(0,0,W,H);
+    const ax=W*0.5,ay=H*0.28;
+    for(const o of orbs){
+      o.phase+=o.pSpeed*dt;o.drift+=o.driftS*dt;
+      const x=ax+o.ox*W*0.5+Math.sin(o.drift)*W*0.18;
+      const y=ay+o.oy*H*0.5+Math.cos(o.drift*0.65)*H*0.12;
+      const r=o.r*Math.min(W,H);
+      const pulse=1+0.55*Math.sin(o.phase);
+      const alpha=o.alpha*pulse;
+      const grd=ctx.createRadialGradient(x,y,0,x,y,r);
+      const[R,G,B]=o.color;
+      grd.addColorStop(0,`rgba(${R},${G},${B},${alpha})`);
+      grd.addColorStop(0.4,`rgba(${R},${G},${B},${alpha*0.5})`);
+      grd.addColorStop(1,`rgba(${R},${G},${B},0)`);
+      ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* NAV */
+const nav=document.getElementById('main-nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+
+/* TABS */
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const tab=btn.dataset.tab;
+    btn.closest('.tab-toggle').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    btn.closest('.tab-toggle').querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+    document.getElementById('tab-'+tab).classList.add('active');
+  });
+});
+
+/* REVEAL */
+const revealEls=document.querySelectorAll('.reveal');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('revealed');observer.unobserve(e.target);}});
+},{threshold:0.1});
+revealEls.forEach(el=>observer.observe(el));
+
+// Logo crossfade + CTA reveal on scroll
+const navLogo = document.querySelector('.nav-logo');
+const navCta = document.querySelector('.nav-cta');
+const hero = document.getElementById('hero');
+window.addEventListener('scroll', () => {
+  const pastHero = window.scrollY > (hero ? hero.offsetHeight * 0.8 : 300);
+  navLogo.classList.toggle('scrolled', window.scrollY > 60);
+  navCta.classList.toggle('visible', pastHero);
+}, { passive: true });
+</script>
+</body>
+</html>
