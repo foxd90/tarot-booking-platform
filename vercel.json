@@ -1,10 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    { "source": "/service-descriptions/clarity", "destination": "/clarity", "permanent": true },
-    { "source": "/service-descriptions/sunlit-sojourn", "destination": "/sunlit-sojourn", "permanent": true },
-    { "source": "/service-descriptions/divine-blueprint", "destination": "/divine-blueprint", "permanent": true },
-    { "source": "/service-descriptions", "destination": "/#services", "permanent": true }
+  "rewrites": [
+    { "source": "/service-descriptions/clarity", "destination": "/clarity.html" },
+    { "source": "/service-descriptions/sunlit-sojourn", "destination": "/sunlit-sojourn.html" },
+    { "source": "/service-descriptions/divine-blueprint", "destination": "/divine-blueprint.html" }
   ]
 }
