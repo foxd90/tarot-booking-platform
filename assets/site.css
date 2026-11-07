@@ -1,0 +1,196 @@
+/* site.css — shared accessibility & polish layer.
+   Linked after each page's own <style>, so it wins on equal specificity. */
+
+:root {
+  /* Higher-contrast palette. Backgrounds are unchanged; every text, accent and
+     line token is lifted. Ratios on --obsidian / --dark-earth / --soil:
+     cream 17.3/15.9/13.5 · sand 11.9/11.0/9.3 · clay 8.4/7.8/6.6
+     mist 8.0/7.4/6.3 · gold 10.4/9.6/8.1 · bark (borders) 2.5/2.3/1.9 */
+  --cream:      #F8F0E0;
+  --sand:       #DCC7A4;  /* body text */
+  --clay:       #C0A683;  /* secondary text */
+  --mist:       #ADA0C4;  /* eyebrow labels */
+  --gold:       #D8B97A;
+  --gold-light: #EED79F;
+  --gold-dim:   rgba(216,185,122,0.5);  /* dividers, numerals */
+  --bark:       #644C37;  /* borders */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html { font-synthesis: none; color-scheme: dark; -webkit-text-size-adjust: 100%; }
+a, button, input, select, textarea { touch-action: manipulation; } /* no double-tap-zoom delay */
+button { user-select: none; -webkit-user-select: none; }
+body { -moz-osx-font-smoothing: grayscale; }
+::selection { background: rgba(201,169,108,0.3); color: var(--cream); }
+[id] { scroll-margin-top: 80px; } /* clear the fixed 72px nav on anchor jumps */
+#smoke-canvas { pointer-events: none; }
+h1, h2, h3, .hero-headline, .sold-title { text-wrap: balance; }
+.hero-title { line-height: 1.05; }
+.footer-smallprint { color: var(--clay); }
+
+/* ── SKIP LINK ── */
+.skip-link {
+  position: fixed;
+  top: 8px; left: 8px;
+  z-index: 200;
+  padding: 12px 20px;
+  background: var(--gold);
+  color: var(--obsidian);
+  font: 500 13px/1 var(--font-body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: none; }
+
+/* ── FOCUS ── */
+:focus-visible {
+  outline: 2px solid #fff; /* neutral: coloured outlines clash with the interface */
+  outline-offset: 3px;
+}
+.field input:focus-visible,
+.field textarea:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  border-color: var(--gold);
+  box-shadow: none;
+}
+.field input, .field textarea { font-size: 16px; } /* <16px makes iOS zoom on focus */
+
+/* ── TAP TARGETS (44px) ── */
+.tab-btn { min-height: 44px; padding-block: 14px; }
+.btn-primary, .btn-outline { padding-block: 14px; }
+.btn-book-card { min-height: 44px; }
+.social-link { width: 44px; height: 44px; }
+.nav-back { min-height: 44px; }
+.nav-cta { padding-block: 14px; }
+.nav-links a,
+.footer-links a { display: inline-flex; align-items: center; min-height: 44px; }
+.mobile-menu a { display: flex; align-items: center; min-height: 44px; }
+.hamburger {
+  width: 44px; height: 44px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── TRANSITIONS (named properties instead of `all`) ── */
+.nav-cta {
+  transition: background-color 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out,
+              opacity 0.4s var(--ease-out);
+}
+.btn-book, .btn-book-card, .btn-primary, .btn-outline, .btn-ghost, .btn-quiet,
+.btn-send, .tab-btn, .social-link {
+  transition: background-color 0.15s ease-out, border-color 0.15s ease-out, color 0.15s ease-out,
+              box-shadow 0.15s ease-out, transform 0.15s var(--ease-out);
+}
+.hamburger span {
+  transition: transform 0.25s var(--ease-out), opacity 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) { /* Press feedback replaces the hover shrink, which looked like a press on hover. */
+.btn-book:hover, .btn-primary:hover, .btn-send:hover { transform: none; } }
+.btn-book:active, .btn-book-card:active, .btn-primary:active, .btn-outline:active,
+.btn-ghost:active, .btn-quiet:active, .btn-send:not(:disabled):active, .nav-cta:active {
+  transform: scale(0.96);
+}
+
+/* ── REDUCED MOTION: keep fades, drop movement ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-line { animation: none; }
+  .nav-logo img { transform: none; }
+  .btn-book:active, .btn-book-card:active, .btn-primary:active, .btn-outline:active,
+  .btn-ghost:active, .btn-quiet:active, .btn-send:not(:disabled):active, .nav-cta:active {
+    transform: none;
+  }
+}
+
+/* ── TYPE: leading, measure, wrapping ── */
+.body-text, .about-text p, .service-desc, .app-desc, .addon-text, .delivery-list li,
+.philosophy-list li, .testimonial-quote, .sold-sub { line-height: 1.6; }
+.body-text { max-width: 65ch; }
+.service-desc, .app-desc, .hero-sub, .hero-subtitle, .sold-sub, .testimonial-quote, .addon-text {
+  text-wrap: pretty;
+}
+
+/* ── INLINE LINKS: underline from the font's own metrics, not colour alone ── */
+.bottom-cta-text a, .form-note a, .form-error a, .footer-smallprint a, .section a {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.2em;
+  text-decoration-skip-ink: auto;
+}
+
+/* ── TYPE SCALE ──
+   One step up for every role, and body copy moves from Jost 300 to 400.
+   The display face stays light (300/400) — that contrast is the look. */
+:root {
+  --text-label:  13px;  /* tracked uppercase eyebrows, badges */
+  --text-ui:     14px;  /* buttons, nav and footer links */
+  --text-detail: 15px;  /* card rows, captions, notes */
+  --text-desc:   17px;  /* card descriptions, lists, legal copy */
+  --text-body:   18px;  /* reading paragraphs */
+}
+
+.section-label, .examples-label, .addon-label, .featured-badge, .hero-price-tag,
+.testimonial-name, .testimonial-location, .page-label, .contact-label, .field label,
+.hero-scroll-hint span, .footer-smallprint, .toc-label, .section-num {
+  font-size: var(--text-label);
+}
+
+.nav-links a, .nav-cta, .nav-back, .btn-primary, .btn-outline, .btn-book, .btn-book-card,
+.btn-ghost, .btn-quiet, .btn-send, .tab-btn, .footer-links a {
+  font-size: var(--text-ui);
+}
+.mobile-menu a { font-size: 16px; }
+.btn-primary, .btn-outline { white-space: nowrap; }
+.service-actions { flex-wrap: wrap; } /* the two card buttons stack when they can't share a row */
+
+.info-card-detail, .blueprint-detail, .area-detail, .footer-copy, .avoid-block p,
+.return-badge span, .bottom-cta-text, .form-note, .contact-intro, .form-error,
+.toc ol li a, .stand {
+  font-size: var(--text-detail);
+  font-weight: 400;
+}
+
+.service-desc, .app-desc, .delivery-list li, .addon-text, .required-block p, .thanks p,
+.section p, .section ul li {
+  font-size: var(--text-desc);
+  font-weight: 400;
+}
+.hero-sub, .sold-sub { font-size: clamp(17px, 1.8vw, 20px); font-weight: 400; }
+
+.body-text, .about-text p, .philosophy-list li {
+  font-size: var(--text-body);
+  font-weight: 400;
+}
+
+/* Labels inside rows were 400 against 300 text; keep them a step heavier. */
+.info-card-detail strong, .avoid-block strong, .delivery-item-label { font-weight: 500; }
+
+/* Display */
+.hero-headline { font-size: clamp(42px, 7vw, 84px); }
+.hero-title    { font-size: clamp(48px, 7.5vw, 96px); }
+.hero-subtitle { font-size: clamp(20px, 2.6vw, 28px); }
+.page-title    { font-size: clamp(48px, 7vw, 80px); }
+.sold-title    { font-size: clamp(44px, 7.5vw, 80px); }
+.section-inner .section-title { font-size: clamp(36px, 4.5vw, 60px); }
+.section-heading { font-size: clamp(32px, 4vw, 48px); }
+.service-name, .philosophy-col-title { font-size: 32px; }
+.contact-title { font-size: 34px; }
+.app-name, .info-card-name { font-size: 26px; }
+.area-name, .blueprint-name, .blueprint-num, .nav-logo-name { font-size: 22px; }
+.testimonial-quote, .example-item, .note-block p { font-size: 20px; }
+.service-price { font-size: 44px; }
+.info-card-price { font-size: 60px; }
+
+/* List dashes: centre on the first line at any size (was a fixed 10px). */
+.delivery-list li::before, .philosophy-list li::before { top: 0.8em; }
+
+/* Contrast stragglers that used the dimmest tokens */
+.blueprint-num { color: var(--gold); }
+.content-section { border-bottom-color: var(--bark); }
+.content-section:last-of-type { border-bottom: none; }

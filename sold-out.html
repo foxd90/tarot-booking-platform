@@ -4,16 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sold Out — Cawa Liss</title>
+<meta name="description" content="Every reading is given full presence, so places are limited. Leave a note and Cawa will reach out when a space opens.">
+<meta name="theme-color" content="#0E0B09">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cawa Liss">
+<meta property="og:title" content="Sold Out — Cawa Liss">
+<meta property="og:description" content="Every reading is given full presence, so places are limited. Leave a note and Cawa will reach out when a space opens.">
+<meta name="twitter:card" content="summary">
+<link rel="apple-touch-icon" href="/assets/cawa_logo.png">
 <link rel="icon" type="image/png" href="assets/cawa_logo.png">
+<script src="assets/site.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; font-size: 16px; }
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0E0B09; }
-::-webkit-scrollbar-thumb { background: #2E2318; border-radius: 3px; }
 
 :root {
   --obsidian:    #0E0B09;
@@ -38,6 +45,7 @@ body {
   color: var(--sand);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
 }
@@ -66,7 +74,7 @@ nav {
   align-items: center;
   gap: 8px;
 }
-.nav-back:hover { color: var(--gold); }
+@media (hover: hover) and (pointer: fine) { .nav-back:hover { color: var(--gold); } }
 .nav-back svg { flex-shrink: 0; }
 .nav-logo {
   display: grid;
@@ -118,7 +126,7 @@ main {
 
 .page-label {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size:12px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--mist);
@@ -171,11 +179,10 @@ main {
   text-decoration: none;
   transition: all 0.35s var(--ease);
 }
-.btn-ghost:hover {
+@media (hover: hover) and (pointer: fine) { .btn-ghost:hover {
   background: rgba(201,169,108,0.12);
   color: var(--gold-light);
-  box-shadow: 0 0 28px rgba(201,169,108,0.15);
-}
+} }
 .btn-quiet {
   display: inline-block;
   font-family: var(--font-body);
@@ -190,7 +197,7 @@ main {
   text-decoration: none;
   transition: all 0.3s var(--ease);
 }
-.btn-quiet:hover { border-color: var(--gold-dim); color: var(--gold-light); }
+@media (hover: hover) and (pointer: fine) { .btn-quiet:hover { border-color: var(--gold-dim); color: var(--gold-light); } }
 
 /* ── CONTACT CARD ── */
 .contact-card {
@@ -205,7 +212,7 @@ main {
 }
 .contact-label {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size:12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--mist);
@@ -234,7 +241,7 @@ main {
 .field label {
   display: block;
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size:12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--mist);
@@ -255,11 +262,10 @@ main {
 .field textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
 .field input::placeholder,
 .field textarea::placeholder { color: var(--clay); }
-.field input:focus,
-.field textarea:focus {
-  outline: none;
-  border-color: var(--gold-dim);
-  box-shadow: 0 0 0 3px rgba(201,169,108,0.08);
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,169,108,0.18);
 }
 .btn-send {
   display: inline-flex;
@@ -280,7 +286,7 @@ main {
   transition: all 0.3s var(--ease);
   margin-top: 6px;
 }
-.btn-send:hover { background: var(--gold-light); transform: scale(0.99); }
+@media (hover: hover) and (pointer: fine) { .btn-send:hover { background: var(--gold-light); transform: scale(0.99); } }
 .form-note {
   font-size: 12px;
   color: var(--clay);
@@ -289,7 +295,7 @@ main {
   text-align: center;
 }
 .form-note a { color: var(--gold); text-decoration: none; transition: color 0.3s; }
-.form-note a:hover { color: var(--gold-light); }
+@media (hover: hover) and (pointer: fine) { .form-note a:hover { color: var(--gold-light); } }
 .form-error {
   display: none;
   font-size: 13px;
@@ -351,19 +357,19 @@ footer {
   text-decoration: none;
   transition: color 0.3s;
 }
-.footer-links a:hover { color: var(--gold); }
+@media (hover: hover) and (pointer: fine) { .footer-links a:hover { color: var(--gold); } }
 .footer-smallprint {
   max-width: 640px;
   margin: 0 auto;
   padding-top: 20px;
-  border-top: 1px solid rgba(74,55,40,0.4);
+  border-top: 1px solid rgba(100,76,55,0.7);
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size:12px;
   color: var(--bark);
   line-height: 1.6;
 }
 .footer-smallprint a { color: var(--clay); text-decoration: none; }
-.footer-smallprint a:hover { color: var(--gold); }
+@media (hover: hover) and (pointer: fine) { .footer-smallprint a:hover { color: var(--gold); } }
 
 @media (max-width: 640px) {
   nav { padding: 0 24px; }
@@ -373,8 +379,10 @@ footer {
   .field-row { grid-template-columns: 1fr; gap: 0; }
 }
 </style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav>
   <a href="index.html" class="nav-back">
@@ -384,17 +392,17 @@ footer {
     Back
   </a>
   <a href="index.html" class="nav-logo">
-    <img src="assets/cawa_logo.png" alt="Cawa Liss">
+    <img src="assets/cawa_logo.png" width="240" height="240" alt="Cawa Liss">
     <span class="nav-logo-name">Cawa Liss</span>
   </a>
 </nav>
 
-<main>
-  <div class="mark"><img src="assets/cawa_logo.png" alt=""></div>
+<main id="main">
+  <div class="mark"><img src="assets/cawa_logo.png" width="240" height="240" alt=""></div>
   <div class="page-label">Fully Booked</div>
-  <h1 class="sold-title">We're currently sold out</h1>
+  <h1 class="sold-title">We’re currently sold out</h1>
   <div class="hero-divider"></div>
-  <p class="sold-sub">Every reading is given my full presence, so places are limited. New capacity opens soon — leave a note below and I'll reach out the moment a space becomes available. Thank you for your patience and interest.</p>
+  <p class="sold-sub">Every reading is given my full presence, so places are limited. New capacity opens soon — leave a note below and I’ll reach out the moment a space becomes available. Thank you for your patience and interest.</p>
 
   <div class="actions">
     <a href="index.html#services" class="btn-ghost">View the Readings</a>
@@ -410,41 +418,41 @@ footer {
       <div class="field-row">
         <div class="field">
           <label for="first">First Name</label>
-          <input type="text" id="first" name="first" placeholder="Your first name" required>
+          <input type="text" id="first" name="first" autocomplete="given-name" placeholder="Your first name" required>
         </div>
         <div class="field">
           <label for="last">Last Name</label>
-          <input type="text" id="last" name="last" placeholder="Your last name" required>
+          <input type="text" id="last" name="last" autocomplete="family-name" placeholder="Your last name" required>
         </div>
       </div>
       <div class="field">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@email.com" required>
+        <input type="email" id="email" name="email" autocomplete="email" placeholder="you@email.com" required>
       </div>
       <div class="field">
         <label for="message">Message</label>
         <textarea id="message" name="message" placeholder="Which reading you're hoping for, and anything you'd like me to know…" required></textarea>
       </div>
       <button type="submit" class="btn-send">Send</button>
-      <div class="form-error" id="form-error"></div>
+      <div class="form-error" id="form-error" role="alert"></div>
       <p class="form-note">Prefer email? Write to <a href="mailto:cawalis.spirit@gmail.com">cawalis.spirit@gmail.com</a></p>
     </form>
 
-    <div class="thanks" id="thanks">
+    <div class="thanks" id="thanks" role="status" tabindex="-1">
       <div class="thanks-icon">✦</div>
-      <p>Thanks for submitting — your message is on its way. I'll be in touch as soon as a place opens.</p>
+      <p>Thanks for submitting — your message is on its way. I’ll be in touch as soon as a place opens.</p>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="footer-copy">© 2024 Oleksandra Liss</div>
+  <div class="footer-copy">© 2024–2026 Oleksandra Liss</div>
   <div class="footer-links">
     <a href="impressum.html">Impressum</a>
     <a href="privacy-policy.html">Privacy Policy &amp; T&amp;C</a>
   </div>
   <div class="footer-smallprint">
-    Payments and service delivery processed by Digistore24 GmbH (Germany). See Digistore24's
+    Payments and service delivery processed by Digistore24 GmbH (Germany). See Digistore24’s
     <a href="https://www.digistore24.com/de/home/extern/cms/page/frontend/legal/privacy" target="_blank" rel="noopener">Privacy Policy</a> and
     <a href="https://www.digistore24.com/page/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>.
   </div>
@@ -496,7 +504,7 @@ footer {
       if (res.ok) {
         // Server-side email sent (Resend configured).
         form.style.display = 'none';
-        thanks.classList.add('show');
+        thanks.classList.add('show'); thanks.focus();
         return;
       }
 
@@ -516,12 +524,12 @@ footer {
       // RESEND_API_KEY is set and the function returns 200.)
       mailtoFallback(data);
       form.style.display = 'none';
-      thanks.classList.add('show');
+      thanks.classList.add('show'); thanks.focus();
     } catch (err) {
       // Network/function unreachable — fall back to the visitor's email client.
       mailtoFallback(data);
       form.style.display = 'none';
-      thanks.classList.add('show');
+      thanks.classList.add('show'); thanks.focus();
     }
   });
 </script>
