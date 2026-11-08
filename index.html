@@ -2,22 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cawa Liss — Tarot Reading Berlin</title>
+<meta name="description" content="Illuminating your present for a brighter future. Tarot readings with Cawa Liss — a storyteller, guide, and magician based in Berlin.">
+<meta name="theme-color" content="#0E0B09">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cawa Liss">
+<meta property="og:title" content="Cawa Liss — Tarot Reading Berlin">
+<meta property="og:description" content="Illuminating your present for a brighter future. Tarot readings with Cawa Liss — a storyteller, guide, and magician based in Berlin.">
+<meta name="twitter:card" content="summary">
+<link rel="apple-touch-icon" href="/assets/cawa_logo.png">
 <link rel="icon" type="image/png" href="assets/cawa_logo.png">
+<script src="assets/site.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ── RESET & BASE ── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; font-size: 16px; }
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0E0B09; }
-::-webkit-scrollbar-thumb { background: #2E2318; border-radius: 3px; }
 
 /* ── TOKENS ── */
 :root {
@@ -67,7 +71,7 @@ nav.scrolled {
   background: rgba(14,11,9,0.88);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border-color: rgba(74,55,40,0.4);
+  border-color: rgba(100,76,55,0.7);
 }
 .nav-logo {
   display: grid;
@@ -120,7 +124,7 @@ nav.scrolled {
   text-decoration: none;
   transition: color 0.3s;
 }
-.nav-links a:hover { color: var(--gold-light); }
+@media (hover: hover) and (pointer: fine) { .nav-links a:hover { color: var(--gold-light); } }
 .nav-cta {
   justify-self: end;
   font-family: var(--font-body);
@@ -141,11 +145,11 @@ nav.scrolled {
   opacity: 1;
   pointer-events: auto;
 }
-.nav-cta:hover {
+@media (hover: hover) and (pointer: fine) { .nav-cta:hover {
   background: rgba(201,169,108,0.1);
   border-color: var(--gold);
   color: var(--gold-light);
-}
+} }
 .hamburger {
   justify-self: end;
   display: none;
@@ -195,125 +199,8 @@ nav.scrolled {
   text-decoration: none;
   transition: color 0.3s;
 }
-.mobile-menu a:hover { color: var(--gold-light); }
+@media (hover: hover) and (pointer: fine) { .mobile-menu a:hover { color: var(--gold-light); } }
 .mobile-menu .nav-cta { align-self: flex-start; }
-
-/* ── HERO ── */
-#hero {
-  position: relative;
-  width: 100%;
-  height: 100svh;
-  min-height: 600px;
-  max-height: 750px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
-#smoke-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-  padding: 52px 48px;
-  max-width: 860px;
-  border-radius: 20px;
-}
-.hero-logo-mark {
-  margin-bottom: 8px;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.hero-logo-mark::before {
-  content: '';
-  position: absolute;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,0,0,0.05) 40%, transparent 75%);
-  pointer-events: none;
-}
-.hero-headline {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 6vw, 72px);
-  font-weight: 300;
-  color: var(--cream);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  text-wrap: pretty;
-  text-shadow: 0 2px 32px rgba(14,11,9,0.9), 0 0 80px rgba(14,11,9,0.7);
-  margin-bottom: 32px;
-}
-.hero-sub {
-  font-family: var(--font-body);
-  font-size: clamp(15px, 1.6vw, 18px);
-  font-weight: 300;
-  color: var(--sand);
-  line-height: 1.7;
-  max-width: 560px;
-  text-shadow: 0 1px 16px rgba(14,11,9,0.95);
-}
-.btn-ghost {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--cream);
-  border: 1px solid var(--gold);
-  padding: 14px 36px;
-  border-radius: 2px;
-  text-decoration: none;
-  transition: all 0.35s var(--ease);
-  margin-top: 8px;
-}
-.btn-ghost:hover {
-  background: rgba(201,169,108,0.12);
-  color: var(--gold-light);
-  box-shadow: 0 0 28px rgba(201,169,108,0.15);
-}
-.hero-scroll-hint {
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0.5;
-}
-.hero-scroll-hint span {
-  font-family: var(--font-body);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-.scroll-line {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, var(--gold), transparent);
-  animation: scroll-pulse 2.5s ease-in-out infinite;
-}
-@keyframes scroll-pulse {
-  0%, 100% { opacity: 0.4; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(0.6); }
-}
 
 /* ── SECTIONS ── */
 section {
@@ -326,7 +213,7 @@ section {
 }
 .section-label {
   font-family: var(--font-body);
-  font-size: 10px;
+  font-size:12px;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -350,7 +237,7 @@ section {
 }
 
 /* ── APPLICATIONS ── */
-#applications { background: var(--dark-earth); }
+#applications { background: var(--obsidian); }
 .applications-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -366,9 +253,7 @@ section {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: background 0.3s var(--ease);
 }
-.app-item:hover { background: var(--soil); }
 .app-numeral {
   font-family: var(--font-display);
   color: var(--mist);
@@ -410,21 +295,8 @@ section {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.35s var(--ease);
   position: relative;
   overflow: hidden;
-}
-.service-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(201,169,108,0.03) 0%, transparent 60%);
-  pointer-events: none;
-}
-.service-card:hover {
-  border-color: var(--gold-dim);
-  box-shadow: 0 8px 40px rgba(14,11,9,0.7);
-  background: #362A1E;
 }
 .service-card.featured {
   border-color: rgba(201,169,108,0.45);
@@ -451,7 +323,7 @@ section {
   position: absolute;
   top: 14px; right: 14px;
   font-family: var(--font-body);
-  font-size: 10px;
+  font-size:12px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -514,10 +386,10 @@ section {
   text-align: center;
   line-height: 1.2;
 }
-.btn-primary:hover {
+@media (hover: hover) and (pointer: fine) { .btn-primary:hover {
   background: var(--gold-light);
   transform: scale(0.98);
-}
+} }
 .btn-outline {
   display: inline-flex;
   align-items: center;
@@ -537,10 +409,10 @@ section {
   text-align: center;
   line-height: 1.2;
 }
-.btn-outline:hover {
+@media (hover: hover) and (pointer: fine) { .btn-outline:hover {
   border-color: var(--gold-dim);
   color: var(--gold-light);
-}
+} }
 
 /* ── TESTIMONIALS ── */
 #testimonials { background: var(--midnight); }
@@ -557,9 +429,7 @@ section {
   border: 1px solid var(--soil);
   border-radius: 4px;
   background: rgba(28,21,16,0.6);
-  transition: border-color 0.3s;
 }
-.testimonial-card:hover { border-color: var(--bark); }
 .testimonial-quote {
   font-family: var(--font-display);
   font-size: 18px;
@@ -577,7 +447,7 @@ section {
 }
 .testimonial-name {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size:12px;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -585,7 +455,7 @@ section {
 }
 .testimonial-location {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size:12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--clay);
@@ -673,10 +543,10 @@ section {
   text-decoration: none;
   transition: all 0.3s var(--ease);
 }
-.social-link:hover {
+@media (hover: hover) and (pointer: fine) { .social-link:hover {
   border-color: var(--gold-dim);
   color: var(--gold);
-}
+} }
 .social-link svg {
   width: 16px;
   height: 16px;
@@ -696,7 +566,6 @@ section {
   height: 280px;
   border-radius: 50%;
   border: 1px solid var(--gold-dim);
-  box-shadow: 0 0 40px rgba(201,169,108,0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -714,16 +583,10 @@ section {
 .portrait-inner svg { width: 48px; height: 48px; stroke: var(--gold); fill: none; stroke-width: 1; }
 .portrait-inner span {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size:12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold);
-}
-.portrait-ring {
-  position: absolute;
-  inset: 8px;
-  border-radius: 50%;
-  border: 1px solid rgba(201,169,108,0.1);
 }
 
 /* ── FOOTER ── */
@@ -760,7 +623,7 @@ footer {
   text-decoration: none;
   transition: color 0.3s;
 }
-.footer-links a:hover { color: var(--gold); }
+@media (hover: hover) and (pointer: fine) { .footer-links a:hover { color: var(--gold); } }
 .footer-socials {
   display: flex;
   gap: 14px;
@@ -770,29 +633,13 @@ footer {
   max-width: 1180px;
   margin: 0 auto;
   padding-top: 28px;
-  border-top: 1px solid rgba(74,55,40,0.4);
+  border-top: 1px solid rgba(100,76,55,0.7);
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size:12px;
   color: var(--bark);
   text-align: center;
   line-height: 1.6;
 }
-
-/* ── REVEAL ANIMATIONS ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-}
-.reveal.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-.reveal-delay-5 { transition-delay: 0.5s; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
@@ -821,10 +668,9 @@ footer {
   .footer-links { flex-wrap: wrap; }
   .footer-socials { justify-content: center; }
 
-  nav { padding: 0 24px; }
+  nav { padding: 0 24px; grid-template-columns: 1fr auto; }
   .mobile-menu { padding: 32px 24px 40px; }
 
-  .hero-content { padding: 0 20px; }
 }
 
 @media (max-width: 600px) {
@@ -832,15 +678,31 @@ footer {
   .app-item { padding: 28px 22px; }
   .service-actions { flex-direction: column; }
 }
+
+/* ── HEADING STYLE (baked from the former "Intimate" tweak) ── */
+h1, h2, h3, .section-title, .service-name, .app-name, .philosophy-col-title {
+  font-style: italic !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.01em !important; /* display sizes tighten slightly */
+}
+
+/* Mobile-menu CTA: the global ".nav-cta" rules hide it, so opt it back in */
+.mobile-menu .nav-cta { opacity: 1; pointer-events: auto; }
+@media (max-width: 900px) {
+  .mobile-menu .nav-cta { display: inline-flex; align-items: center; }
+}
 </style>
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/hero/hero.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <!-- NAV -->
 
-<nav id="main-nav">
+<nav id="main-nav" class="over-hero">
   <a href="#hero" class="nav-logo">
-    <img src="assets/cawa_logo.png" alt="Cawa Liss">
+    <img src="assets/cawa_logo.png" width="240" height="240" alt="Cawa Liss">
     <span class="nav-logo-name">Cawa Liss</span>
   </a>
   <ul class="nav-links">
@@ -849,8 +711,8 @@ footer {
     <li><a href="#about">About</a></li>
   </ul>
   <a href="#services" class="nav-cta nav-links">Book a Reading</a>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
   </button>
 </nav>
 
@@ -862,61 +724,77 @@ footer {
   <a href="#services" class="nav-cta">Book a Reading</a>
 </div>
 
+<main id="main">
 <!-- HERO -->
 <section id="hero">
-  <canvas id="smoke-canvas"></canvas>
-  <!-- Warm title glow canvas -->
-  <canvas id="hero-glow-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
-  <!-- Crescent smoke illustration overlay -->
-  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:1;">
-    <img src="uploads/200601_00b7271c4427400d9a92f7e6aa060a76~mv2.avif" alt="" style="width:min(700px,90vw);height:auto;mix-blend-mode:screen;opacity:0.55;filter:sepia(0.3) saturate(1.4);">
+  <div class="hero-media">
+    <video autoplay muted loop playsinline preload="auto" poster="assets/hero/hero-poster.jpg" aria-hidden="true">
+      <source src="assets/hero/hero-mobile.mp4" type="video/mp4" media="(max-width: 760px)">
+      <source src="assets/hero/hero-desktop.mp4" type="video/mp4">
+    </video>
+    <canvas aria-hidden="true"></canvas>
   </div>
-  <div class="hero-content">
-    <div class="hero-logo-mark">
-      <img src="uploads/cawa_logo.png" alt="Cawa Liss" style="height:72px;width:auto;filter:drop-shadow(0 0 20px rgba(201,169,108,0.4));">
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="hero-lantern" aria-hidden="true"><div class="hero-lantern-dim"></div><div class="hero-lantern-glow"></div></div>
+  <canvas class="hero-sparks" aria-hidden="true"></canvas>
+
+  <div class="hero-inner">
+    <div class="hero-top">
+      <a href="#hero" class="hero-brand">
+        <img src="assets/cawa_logo.png" width="240" height="240" alt="">
+        <span class="hero-brand-text">
+          <span>Cawa Liss</span>
+          <span class="hero-brand-sub">Tarot · Berlin</span>
+        </span>
+      </a>
+      <button class="hero-menu-btn" type="button" aria-label="Open menu" aria-controls="mobile-menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
     </div>
-    <h1 class="hero-headline" style="font-weight: 500">Illuminating Your Present<br>for a Brighter Future</h1>
-    <a href="#services" class="btn-ghost">Book a Tarot Reading</a>
-  </div>
-  <div class="hero-scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
+    <div class="hero-body">
+      <h1 class="hero-heading">Let Tarot Illuminate</h1>
+      <a href="#services" class="btn-gold">Book a Tarot Reading</a>
+      <ul class="hero-links">
+        <li><a href="#applications">Guidance</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
   </div>
 </section>
 
 <!-- APPLICATIONS -->
 <section id="applications" style="overflow:hidden;">
-  <div class="section-divider"></div>
   <div class="section-inner" style="position:relative;">
 
-    <div class="reveal">
+    <div>
       <div class="section-label">Guidance</div>
-      <div class="section-title">What Tarot Can Illuminate</div>
+      <h2 class="section-title">What Tarot Can Illuminate</h2>
     </div>
     <div class="applications-grid">
-      <div class="app-item reveal reveal-delay-1">
+      <div class="app-item">
         <div class="app-numeral">01</div>
-        <div class="app-name">Decision-Making</div>
+        <h3 class="app-name">Decision-Making</h3>
         <p class="app-desc">Navigate significant choices with clarity and informed perspective</p>
       </div>
-      <div class="app-item reveal reveal-delay-2">
+      <div class="app-item">
         <div class="app-numeral">02</div>
-        <div class="app-name">The Hidden Self</div>
+        <h3 class="app-name">The Hidden Self</h3>
         <p class="app-desc">Surface subconscious truths that shape your reality</p>
       </div>
-      <div class="app-item reveal reveal-delay-3">
+      <div class="app-item">
         <div class="app-numeral">03</div>
-        <div class="app-name">Inspiration</div>
+        <h3 class="app-name">Inspiration</h3>
         <p class="app-desc">Ignite creativity, reconnect with imagination and inner direction</p>
       </div>
-      <div class="app-item reveal reveal-delay-4">
+      <div class="app-item">
         <div class="app-numeral">04</div>
-        <div class="app-name">Breaking Through Resistance</div>
+        <h3 class="app-name">Breaking Through Resistance</h3>
         <p class="app-desc">Uncover the fears quietly blocking your forward momentum</p>
       </div>
-      <div class="app-item reveal reveal-delay-5" style="grid-column: 1 / -1;">
+      <div class="app-item" style="grid-column: 1 / -1;">
         <div class="app-numeral">05</div>
-        <div class="app-name">Soothing Anxiety</div>
+        <h3 class="app-name">Soothing Anxiety</h3>
         <p class="app-desc">Find stillness through personal empowerment and self-understanding</p>
       </div>
     </div>
@@ -927,16 +805,16 @@ footer {
 <!-- SERVICES -->
 <section id="services">
   <div class="section-inner">
-    <div class="reveal" style="text-align:center; margin-bottom: 0;">
+    <div style="text-align:center; margin-bottom: 0;">
       <div class="section-label" style="text-align:center;">Offerings</div>
-      <div class="section-title center">Choose Your Reading</div>
+      <h2 class="section-title center">Choose Your Reading</h2>
     </div>
     <div class="services-grid">
-      <div class="service-card reveal reveal-delay-1">
+      <div class="service-card">
         <div class="service-card-img">
-          <img src="uploads/1.avif" alt="" aria-hidden="true">
+          <img src="uploads/1.avif" width="846" height="504" loading="lazy" decoding="async" alt="" aria-hidden="true">
         </div>
-        <div class="service-name">Clarity</div>
+        <h3 class="service-name">Clarity</h3>
         <div class="service-price">€110</div>
         <div class="service-divider"></div>
         <p class="service-desc">A focused reading on a specific question or life area — love, career, finance, relationships, or beyond.</p>
@@ -945,25 +823,25 @@ footer {
           <a href="https://www.checkout-ds24.com/product/540109" target="_blank" rel="noopener" class="btn-primary">Book Now</a>
         </div>
       </div>
-      <div class="service-card featured reveal reveal-delay-2">
+      <div class="service-card featured">
         <div class="service-card-img" style="position:relative;">
-          <img src="uploads/2.avif" alt="" aria-hidden="true">
+          <img src="uploads/2.avif" width="846" height="504" loading="lazy" decoding="async" alt="" aria-hidden="true">
           <span class="featured-badge">Most popular</span>
         </div>
-        <div class="service-name">Sunlit Sojourn</div>
+        <h3 class="service-name">Sunlit Sojourn</h3>
         <div class="service-price">€250</div>
         <div class="service-divider"></div>
-        <p class="service-desc">A year-ahead reading exploring external influences across all life areas, with guidance on how to navigate what's coming.</p>
+        <p class="service-desc">A year-ahead reading exploring external influences across all life areas, with guidance on how to navigate what’s coming.</p>
         <div class="service-actions">
           <a href="/service-descriptions/sunlit-sojourn" class="btn-outline">Learn More</a>
           <a href="https://www.checkout-ds24.com/product/540824" target="_blank" rel="noopener" class="btn-primary">Book Now</a>
         </div>
       </div>
-      <div class="service-card reveal reveal-delay-3">
+      <div class="service-card">
         <div class="service-card-img">
-          <img src="uploads/3.avif" alt="" aria-hidden="true">
+          <img src="uploads/3.avif" width="846" height="504" loading="lazy" decoding="async" alt="" aria-hidden="true">
         </div>
-        <div class="service-name">Divine Blueprint</div>
+        <h3 class="service-name">Divine Blueprint</h3>
         <div class="service-price">€400</div>
         <div class="service-divider"></div>
         <p class="service-desc">A deep blend of numerology and tarot — uncovering your innate gifts, the obstacles you were born to face, and where you stand today.</p>
@@ -978,31 +856,31 @@ footer {
 
 <!-- TESTIMONIALS -->
 <section id="testimonials" style="position:relative;overflow:hidden;">
-  <img src="uploads/dry flowers.avif" alt="" aria-hidden="true" style="position:absolute;right:-40px;bottom:-20px;width:560px;height:auto;opacity:0.28;mix-blend-mode:luminosity;pointer-events:none;filter:grayscale(1) sepia(0.4) brightness(0.7);transform:rotate(12deg);z-index:0;">
+  <img src="uploads/dry-flowers.avif" width="782" height="920" loading="lazy" decoding="async" alt="" aria-hidden="true" style="position:absolute;right:-40px;bottom:-20px;width:560px;height:auto;opacity:0.28;mix-blend-mode:luminosity;pointer-events:none;filter:grayscale(1) sepia(0.4) brightness(0.7);transform:rotate(12deg);z-index:0;">
 
   <div class="section-divider"></div>
   <div class="section-inner" style="position:relative;z-index:1;">
   
-    <div class="reveal" style="text-align:center;">
+    <div style="text-align:center;">
       <div class="section-label" style="text-align:center;">Reflections</div>
-      <div class="section-title center">What Clients Say</div>
+      <h2 class="section-title center">What Clients Say</h2>
     </div>
     <div class="testimonials-grid">
-      <div class="testimonial-card reveal reveal-delay-1">
+      <div class="testimonial-card">
         <p class="testimonial-quote">Cawa is very open, intuitive and receptive. Her gifts came through so clearly. I felt truly seen, and left with more clarity and routes to consider.</p>
         <div class="testimonial-meta">
           <div class="testimonial-name">Maritza</div>
           <div class="testimonial-location">Germany</div>
         </div>
       </div>
-      <div class="testimonial-card reveal reveal-delay-2">
+      <div class="testimonial-card">
         <p class="testimonial-quote">The reading described my situation beautifully — like listening to a story about myself. I gained a fuller view of my question, with options and things to explore. Thank you.</p>
         <div class="testimonial-meta">
           <div class="testimonial-name">Sara</div>
           <div class="testimonial-location">Belgium</div>
         </div>
       </div>
-      <div class="testimonial-card reveal reveal-delay-3">
+      <div class="testimonial-card">
         <p class="testimonial-quote">Insightful and deeply calming. It helped me see the options before me more clearly, and realise which path felt right.</p>
         <div class="testimonial-meta">
           <div class="testimonial-name">T.</div>
@@ -1018,23 +896,23 @@ footer {
 <section id="philosophy" style="overflow:hidden;position:relative;">
   <div class="section-inner" style="position:relative;z-index:1;">
 
-    <div class="reveal">
+    <div>
       <div class="section-label">Understanding</div>
-      <div class="section-title">Tarot — Honestly</div>
+      <h2 class="section-title">Tarot — Honestly</h2>
     </div>
-    <div class="philosophy-cols reveal">
+    <div class="philosophy-cols">
       <div class="philosophy-col">
-        <div class="philosophy-col-title">What Tarot Is</div>
+        <h3 class="philosophy-col-title">What Tarot Is</h3>
         <ul class="philosophy-list">
           <li>A metaphorical instrument for accessing deeper self-knowledge</li>
           <li>Support for uncovering what you truly want and need</li>
           <li>A source of imagination, inspiration, and insight</li>
-          <li>A companion through life's uncertainties</li>
+          <li>A companion through life’s uncertainties</li>
         </ul>
       </div>
       <div class="gold-divider-v"></div>
       <div class="philosophy-col">
-        <div class="philosophy-col-title">What Tarot Is Not</div>
+        <h3 class="philosophy-col-title">What Tarot Is Not</h3>
         <ul class="philosophy-list">
           <li>A precise fortune-telling tool</li>
           <li>Rooted in determinism — it honours personal agency and free will</li>
@@ -1051,9 +929,9 @@ footer {
   <div class="section-divider"></div>
   <div class="section-inner">
     <div class="about-grid">
-      <div class="about-text reveal">
+      <div class="about-text">
         <div class="section-label">The Guide</div>
-        <div class="section-title" style="margin-bottom: 32px;">About Cawa</div>
+        <h2 class="section-title" style="margin-bottom: 32px;">About Cawa</h2>
         <p>I am Cawa Liss — a storyteller, guide, and magician based in Berlin. My primary instrument is the tarot deck, which I approach not as a mystical oracle, but as a profound psychological tool — not unlike a Rorschach test for the soul. Your truth lives within you. My role is simply to help you hear it.</p>
         <p>I hold training in Reiki, Shamanism, and the Jungian interpretation of Tarot, and I am currently studying Buddhist Psychology and Herbal Medicine. Every reading I offer is shaped by a deep commitment to your empowerment.</p>
         <div class="about-socials">
@@ -1066,15 +944,14 @@ footer {
             <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
           </a>
           <!-- TikTok -->
-          <a href="https://www.tiktok.com/404?fromUrl=/animacawa" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+          <a href="https://www.tiktok.com/@animacawa" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
             <svg viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
           </a>
         </div>
       </div>
-      <div class="portrait-wrap reveal reveal-delay-2">
+      <div class="portrait-wrap">
         <div class="portrait-circle" style="background:transparent;border-color:rgba(201,169,108,0.35);">
-          <img src="uploads/portrait image.avif" alt="Cawa Liss" style="width:100%;height:100%;object-fit:cover;border-radius:50%;opacity:0.92;filter:sepia(0.1) saturate(0.95);">
-          <div class="portrait-ring"></div>
+          <img src="uploads/portrait.avif" width="500" height="500" alt="Cawa Liss" style="width:100%;height:100%;object-fit:cover;border-radius:50%;opacity:0.92;filter:sepia(0.1) saturate(0.95);">
         </div>
       </div>
     </div>
@@ -1082,10 +959,12 @@ footer {
   <div class="section-divider"></div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-copy">© 2024 Oleksandra Liss</div>
+    <div class="footer-copy">© 2024–2026 Oleksandra Liss</div>
     <div class="footer-links">
       <a href="impressum.html">Impressum</a>
       <a href="privacy-policy.html">Privacy Policy</a>
@@ -1097,7 +976,7 @@ footer {
       <a href="https://www.instagram.com/animacawa" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
         <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
       </a>
-      <a href="https://www.tiktok.com/404?fromUrl=/animacawa" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+      <a href="https://www.tiktok.com/@animacawa" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
         <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" width="16" height="16"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
       </a>
     </div>
@@ -1107,297 +986,7 @@ footer {
   </div>
 </footer>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-
-<script type="text/babel">
-const { useEffect } = React;
-
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "mood": "dark",
-  "heroIntensity": 20,
-  "typeStyle": "intimate"
-}/*EDITMODE-END*/;
-
-function CawaTweaks() {
-  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
-
-  useEffect(() => {
-    applyTweaks(tweaks);
-  }, [tweaks]);
-
-  return (
-    <TweaksPanel title="Tweaks">
-      <TweakSection label="Atmosphere">
-        <TweakRadio
-          label="Mood"
-          value={tweaks.mood}
-          options={[{value:'dark',label:'Dark'},{value:'warm',label:'Warm'},{value:'void',label:'Void'}]}
-          onChange={v => setTweak('mood', v)}
-        />
-      </TweakSection>
-      <TweakSection label="Hero Glow">
-        <TweakSlider
-          label="Intensity"
-          value={tweaks.heroIntensity}
-          min={20} max={100} step={5}
-          onChange={v => setTweak('heroIntensity', v)}
-        />
-      </TweakSection>
-      <TweakSection label="Typography">
-        <TweakRadio
-          label="Type style"
-          value={tweaks.typeStyle}
-          options={[{value:'editorial',label:'Editorial'},{value:'intimate',label:'Intimate'},{value:'stark',label:'Stark'}]}
-          onChange={v => setTweak('typeStyle', v)}
-        />
-      </TweakSection>
-    </TweaksPanel>
-  );
-}
-
-function applyTweaks(t) {
-  const root = document.documentElement;
-
-  // Mood: reshapes the palette feel
-  if (t.mood === 'dark') {
-    root.style.setProperty('--obsidian', '#0E0B09');
-    root.style.setProperty('--dark-earth', '#1C1510');
-    root.style.setProperty('--soil', '#2E2318');
-    root.style.setProperty('--gold', '#C9A96C');
-    root.style.setProperty('--cream', '#F0E4CC');
-    root.style.setProperty('--sand', '#C4A882');
-    document.body.style.background = '#0E0B09';
-  } else if (t.mood === 'warm') {
-    root.style.setProperty('--obsidian', '#120D08');
-    root.style.setProperty('--dark-earth', '#231810');
-    root.style.setProperty('--soil', '#382515');
-    root.style.setProperty('--gold', '#D4A85A');
-    root.style.setProperty('--cream', '#F5E8CE');
-    root.style.setProperty('--sand', '#CEB48E');
-    document.body.style.background = '#120D08';
-  } else if (t.mood === 'void') {
-    root.style.setProperty('--obsidian', '#06050A');
-    root.style.setProperty('--dark-earth', '#0D0B14');
-    root.style.setProperty('--soil', '#16121F');
-    root.style.setProperty('--gold', '#A896D4');
-    root.style.setProperty('--cream', '#E8E0F5');
-    root.style.setProperty('--sand', '#A89EC0');
-    document.body.style.background = '#06050A';
-  }
-
-  // Hero glow intensity — exposed via CSS var read by canvas
-  window.__heroIntensity = t.heroIntensity / 100;
-
-  // Type style: shifts the heading personality
-  const heads = document.querySelectorAll('h1,h2,.section-title,.hero-headline,.service-name,.app-name,.philosophy-col-title');
-  if (t.typeStyle === 'editorial') {
-    heads.forEach(el => {
-      el.style.fontStyle = '';
-      el.style.fontWeight = '300';
-      el.style.letterSpacing = '-0.02em';
-    });
-  } else if (t.typeStyle === 'intimate') {
-    heads.forEach(el => {
-      el.style.fontStyle = 'italic';
-      el.style.fontWeight = '300';
-      el.style.letterSpacing = '0em';
-    });
-  } else if (t.typeStyle === 'stark') {
-    heads.forEach(el => {
-      el.style.fontStyle = '';
-      el.style.fontWeight = '500';
-      el.style.letterSpacing = '0.04em';
-    });
-  }
-}
-
-ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<CawaTweaks />);
-</script>
-
-<div id="tweaks-root"></div>
-
 <script>
-/* ── SMOKE CANVAS ── */
-(function() {
-  const canvas = document.getElementById('smoke-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, orbs;
-
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-
-  function makeOrb(i) {
-    const palette = [
-      [201, 169, 108],  // gold
-      [201, 169, 108],  // gold
-      [44,  74, 106],   // deep blue
-      [26,  14,  28],   // plum
-      [139, 123, 158],  // mist
-      [201, 169, 108],  // gold again for warmth
-      [60,  40,  80],   // deep violet
-    ];
-    const c = palette[i % palette.length];
-    return {
-      cx: 0.2 + Math.random() * 0.6,
-      cy: 0.2 + Math.random() * 0.6,
-      r:  0.28 + Math.random() * 0.38,
-      color: c,
-      // Base alpha reduced 20% from original
-      alphaBase: (0.06 + Math.random() * 0.09),
-      // Pulse parameters — each orb breathes independently
-      pulsePhase:  Math.random() * Math.PI * 2,
-      pulseSpeed:  0.00018 + Math.random() * 0.00014,  // very slow breath
-      pulseDepth:  0.35 + Math.random() * 0.3,         // how much it pulses
-      // Radius also breathes slightly
-      rPulsePhase: Math.random() * Math.PI * 2,
-      rPulseSpeed: 0.00012 + Math.random() * 0.0001,
-      rPulseDepth: 0.08 + Math.random() * 0.08,
-      // Drift / float
-      speedX: (Math.random() - 0.5) * 0.00036,
-      speedY: (Math.random() - 0.5) * 0.00027,
-      drift:      Math.random() * Math.PI * 2,
-      driftSpeed: 0.000105 + Math.random() * 0.000075,   // slower, dreamier
-    };
-  }
-
-  function init() {
-    resize();
-    orbs = Array.from({length: 8}, (_, i) => makeOrb(i));
-  }
-
-  let last = 0;
-  function draw(ts) {
-    const dt = Math.min(ts - last, 50); // cap dt so tab-switch doesn't jump
-    last = ts;
-
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#0E0B09';
-    ctx.fillRect(0, 0, W, H);
-
-    for (const orb of orbs) {
-      // Advance phases
-      orb.drift      += orb.driftSpeed * dt;
-      orb.pulsePhase += orb.pulseSpeed * dt;
-      orb.rPulsePhase+= orb.rPulseSpeed * dt;
-
-      // Floating motion — sinusoidal lissajous-ish path
-      orb.cx += orb.speedX * dt + Math.sin(orb.drift)       * 0.00009;
-      orb.cy += orb.speedY * dt + Math.cos(orb.drift * 0.6) * 0.00007;
-
-      // Soft edge reflection
-      if (orb.cx < 0.08 || orb.cx > 0.92) orb.speedX *= -0.98;
-      if (orb.cy < 0.08 || orb.cy > 0.92) orb.speedY *= -0.98;
-      orb.cx = Math.max(0.08, Math.min(0.92, orb.cx));
-      orb.cy = Math.max(0.08, Math.min(0.92, orb.cy));
-
-      // Pulsing alpha — smooth sine breath
-      const pulse = 1 + orb.pulseDepth * Math.sin(orb.pulsePhase);
-      const intensity = window.__heroIntensity !== undefined ? window.__heroIntensity : 0.7;
-      const alpha = orb.alphaBase * pulse * (0.5 + 0.5 * (intensity / 0.7));
-
-      // Pulsing radius — slightly inhale/exhale
-      const rPulse = 1 + orb.rPulseDepth * Math.sin(orb.rPulsePhase);
-      const r = orb.r * rPulse * Math.min(W, H);
-
-      const x = orb.cx * W;
-      const y = orb.cy * H;
-
-      const grd = ctx.createRadialGradient(x, y, 0, x, y, r);
-      const [R, G, B] = orb.color;
-      grd.addColorStop(0,    `rgba(${R},${G},${B},${alpha})`);
-      grd.addColorStop(0.45, `rgba(${R},${G},${B},${alpha * 0.35})`);
-      grd.addColorStop(0.8,  `rgba(${R},${G},${B},${alpha * 0.08})`);
-      grd.addColorStop(1,    `rgba(${R},${G},${B},0)`);
-
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = grd;
-      ctx.fill();
-    }
-
-    // Vignette — slightly deeper for mystery
-    const vig = ctx.createRadialGradient(W/2, H/2, H*0.2, W/2, H/2, H*0.9);
-    vig.addColorStop(0, 'rgba(14,11,9,0)');
-    vig.addColorStop(0.7, 'rgba(14,11,9,0.3)');
-    vig.addColorStop(1, 'rgba(14,11,9,0.65)');
-    ctx.fillStyle = vig;
-    ctx.fillRect(0, 0, W, H);
-
-    requestAnimationFrame(draw);
-  }
-
-  init();
-  window.addEventListener('resize', resize);
-  requestAnimationFrame(draw);
-})();
-
-/* ── HERO TITLE GLOW ── */
-(function() {
-  const canvas = document.getElementById('hero-glow-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H;
-
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  // Warm orbs clustered around vertical center (where title lives)
-  const orbs = [
-    { ox: 0.0,  oy: 0.0,  r: 0.65, phase: 0.0,  pSpeed: 0.0011, drift: 0.0,  driftS: 0.0006, color: [201,155, 80], alpha: 0.30 },
-    { ox: 0.18, oy: 0.10, r: 0.50, phase: 1.4,  pSpeed: 0.0014, drift: 2.2,  driftS: 0.00045,color: [220,175,100], alpha: 0.24 },
-    { ox:-0.20, oy: 0.18, r: 0.52, phase: 2.8,  pSpeed: 0.0009, drift: 4.0,  driftS: 0.0007, color: [180,120, 60], alpha: 0.26 },
-    { ox: 0.08, oy:-0.10, r: 0.44, phase: 0.7,  pSpeed: 0.0012, drift: 1.1,  driftS: 0.00055,color: [210,165, 90], alpha: 0.22 },
-    { ox:-0.10, oy:-0.05, r: 0.40, phase: 3.5,  pSpeed: 0.0010, drift: 3.6,  driftS: 0.0004, color: [201,169,108], alpha: 0.20 },
-  ];
-
-  let last = 0;
-  function draw(ts) {
-    const dt = Math.min(ts - last, 50);
-    last = ts;
-    ctx.clearRect(0, 0, W, H);
-
-    // Anchor point — higher up, directly under nav
-    const ax = W * 0.5;
-    const ay = H * 0.28;
-
-    for (const o of orbs) {
-      o.phase += o.pSpeed * dt;
-      o.drift += o.driftS * dt;
-
-      // Slow float around anchor
-      const x = ax + o.ox * W * 0.5 + Math.sin(o.drift) * W * 0.18;
-      const y = ay + o.oy * H * 0.5 + Math.cos(o.drift * 0.65) * H * 0.12;
-      const r = o.r * Math.min(W, H);
-
-      const pulse = 1 + 0.55 * Math.sin(o.phase);
-      const alpha = o.alpha * pulse;
-
-      const grd = ctx.createRadialGradient(x, y, 0, x, y, r);
-      const [R,G,B] = o.color;
-      grd.addColorStop(0,   `rgba(${R},${G},${B},${alpha})`);
-      grd.addColorStop(0.4, `rgba(${R},${G},${B},${alpha * 0.5})`);
-      grd.addColorStop(0.75,`rgba(${R},${G},${B},${alpha * 0.15})`);
-      grd.addColorStop(1,   `rgba(${R},${G},${B},0)`);
-
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fillStyle = grd;
-      ctx.fill();
-    }
-
-    requestAnimationFrame(draw);
-  }
-  requestAnimationFrame(draw);
-})();
-
 /* ── NAV SCROLL ── */
 const nav = document.getElementById('main-nav');
 window.addEventListener('scroll', () => {
@@ -1484,36 +1073,26 @@ if (false) (function() {
     ctx.fillRect(0, H * 0.55, W, H * 0.45);
     ctx.globalCompositeOperation = 'source-over';
 
-    requestAnimationFrame(draw);
+    heroRaf(draw);
   }
-  requestAnimationFrame(draw);
+  heroRaf(draw);
 })();
 
 /* ── HAMBURGER ── */
 const ham = document.getElementById('hamburger');
 const mob = document.getElementById('mobile-menu');
-ham.addEventListener('click', () => {
-  const open = ham.classList.toggle('open');
+function setMenu(open) {
+  ham.classList.toggle('open', open);
+  nav.classList.toggle('menu-open', open);
   mob.classList.toggle('open', open);
+  ham.setAttribute('aria-expanded', String(open));
+  ham.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+}
+ham.addEventListener('click', () => setMenu(!ham.classList.contains('open')));
+mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && ham.classList.contains('open')) { setMenu(false); ham.focus(); }
 });
-mob.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    ham.classList.remove('open');
-    mob.classList.remove('open');
-  });
-});
-
-/* ── INTERSECTION OBSERVER (reveal) ── */
-const revealEls = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('revealed');
-      observer.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.12 });
-revealEls.forEach(el => observer.observe(el));
 
 // Logo scroll transition
 const navLogo = document.querySelector('.nav-logo');
@@ -1525,5 +1104,7 @@ window.addEventListener('scroll', () => {
   navCta.classList.toggle('visible', pastHero);
 }, { passive: true });
 </script>
+<script src="assets/hero/hero-config.js"></script>
+<script src="assets/hero/hero.js"></script>
 </body>
 </html>
