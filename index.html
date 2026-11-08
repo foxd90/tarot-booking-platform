@@ -411,58 +411,187 @@ section {
 
 /* ── SERVICES ── */
 #services { background: var(--obsidian); }
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  align-items: stretch;
+/* Three readings as a tarot spread (assets/offerings.js): cards fan out; the drawn one rises
+   and its reading shows beneath. The spread is a tablist; each reading is its tabpanel. */
+.sp-table { position: relative; }
+.sp-spread { display: flex; justify-content: center; align-items: flex-end; padding: 36px 0 8px; }
+.sp-card {
+  --w: 230px;
+  position: relative;
+  flex: 0 0 var(--w);
+  aspect-ratio: 5 / 8.4;
+  margin: 0 -10px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transform: translateY(var(--y)) rotate(var(--r));
+  transform-origin: 50% 120%;
+  transition: transform 420ms cubic-bezier(0.32, 0.72, 0, 1);
+  -webkit-tap-highlight-color: transparent;
 }
-.service-card {
-  background: var(--soil);
-  border: 1px solid var(--bark);
-  border-radius: 4px;
-  padding: 44px 36px;
+.sp-card[aria-selected="true"] { transform: translateY(-26px) scale(1.04); z-index: 2; }
+.sp-card:focus-visible { outline: none; }
+.sp-card:focus-visible .sp-face { box-shadow: inset 0 0 0 1px var(--gold), 0 0 0 3px rgba(201,169,108,0.45); }
+.sp-face {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 14px 20px;
+  border-radius: 10px;
   overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(216,185,122,0.12), transparent 60%),
+    radial-gradient(rgba(216,185,122,0.08) 1px, transparent 1.5px) 0 0 / 12px 12px,
+    var(--dark-earth);
+  box-shadow: inset 0 0 0 1px var(--bark), 0 10px 26px rgba(0,0,0,0.45);
+  transition: box-shadow 250ms ease-out, scale 150ms ease-out;
 }
-.service-card.featured {
-  border-color: rgba(201,169,108,0.45);
-  box-shadow: 0 0 40px rgba(201,169,108,0.1), 0 8px 40px rgba(14,11,9,0.7);
+.sp-face::before {   /* inner gilt frame, as on the Guidance cards */
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 5px;
+  pointer-events: none;
 }
-.service-card-img {
-  width: calc(100% + 72px);
-  margin: -44px -36px 24px -36px;
-  height: 180px;
-  overflow: hidden;
-  border-radius: 4px 4px 0 0;
-  background: var(--bark);
+.sp-card:active .sp-face { scale: 0.98; }
+.sp-card[aria-selected="true"] .sp-face {
+  box-shadow: inset 0 0 0 1px rgba(201,169,108,0.5), 0 18px 40px rgba(0,0,0,0.55), 0 0 44px rgba(216,185,122,0.18);
 }
-.service-card-img img {
+.sp-art { position: absolute; inset: 0; opacity: 0.22; }
+.sp-art img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
   filter: invert(1) brightness(0.55) sepia(0.3);
   mix-blend-mode: screen;
-  opacity: 0.7;
 }
-.featured-badge {
+.sp-art::after {
+  content: "";
   position: absolute;
-  top: 14px; right: 14px;
-  font-family: var(--font-body);
-  font-size:12px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, transparent 20%, var(--dark-earth) 75%);
+}
+.sp-dim {   /* cards not drawn sit back in shadow */
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: var(--obsidian);
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 300ms ease-out;
+}
+.sp-card[aria-selected="true"] .sp-dim { opacity: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .sp-spread.settled .sp-card:not([aria-selected="true"]):hover { transform: translateY(calc(var(--y) - 10px)) rotate(var(--r)); }
+  .sp-card:hover .sp-dim { opacity: 0.15; }
+}
+.sp-roman, .sp-sigil, .sp-name, .sp-price { position: relative; }
+.sp-roman {
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0.08em;
   color: var(--gold);
-  background: rgba(14,11,9,0.75);
-  border: 1px solid var(--gold-dim);
-  padding: 4px 10px;
-  border-radius: 2px;
-  backdrop-filter: blur(6px);
+  font-variant-numeric: lining-nums;
+}
+.sp-sigil {
+  width: 52%;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.9;
+}
+.sp-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 1.1;
+  color: var(--cream);
+  text-wrap: balance;
+}
+.sp-arcana {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.sp-price {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--gold);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+/* Before the deal (set by offerings.js, so the cards still show without JS) */
+.sp-spread[data-deal] .sp-card {
+  opacity: 0;
+  transform: translateX(var(--from)) translateY(30px);
+  transition: none;
+}
+.sp-spread.dealt .sp-card {
+  opacity: 1;
+  transform: translateY(var(--y)) rotate(var(--r));
+  transition: opacity 300ms ease-out, transform 700ms cubic-bezier(0.32, 0.72, 0, 1);
+  transition-delay: calc(var(--i) * 110ms);
+}
+.sp-spread.dealt .sp-card[aria-selected="true"] { transform: translateY(-26px) scale(1.04); }
+.sp-spread.settled .sp-card { transition: transform 420ms cubic-bezier(0.32, 0.72, 0, 1); }
+.sp-burst {
+  position: absolute;
+  inset: -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.sp-readings { max-width: 560px; margin: 40px auto 0; }
+.sp-readings[data-tabs] { display: grid; }
+.sp-readings[data-tabs] > .sp-reading { grid-area: 1 / 1; }
+/* hidden readings keep their space, so drawing a shorter one doesn't pull the page up */
+.sp-readings[data-tabs] > .sp-reading[hidden] { display: flex; visibility: hidden; }
+.sp-reading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.sp-reading + .sp-reading { margin-top: 56px; }   /* no-JS: readings stack */
+.sp-readings[data-tabs] > .sp-reading { margin-top: 0; }
+.sp-kicker {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+.sp-kicker b { font-weight: 500; color: var(--gold); }
+.sp-title { display: flex; align-items: baseline; gap: 16px; }
+.sp-reading .service-price { font-variant-numeric: lining-nums tabular-nums; }
+.sp-reading .service-desc { max-width: 46ch; text-wrap: pretty; }
+.sp-reading .service-actions { width: min(100%, 380px); }
+@media (prefers-reduced-motion: reduce) {
+  .sp-card, .sp-spread.dealt .sp-card, .sp-spread.settled .sp-card, .sp-dim, .sp-face { transition: none; }
 }
 .service-name {
   font-family: var(--font-display);
@@ -778,7 +907,6 @@ footer {
   .hamburger { display: flex; }
 
   .tr-slot { flex-basis: calc((100% - 24px) / 2); }
-  .services-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
 
   .philosophy-cols {
@@ -812,6 +940,17 @@ footer {
   .tr-front .app-numeral { font-size: 28px; }
   .tr-desc { font-size: 14px; }
   .service-actions { flex-direction: column; }
+  .sp-spread { padding-top: 30px; }
+  .sp-card { --w: calc((100vw - 40px) / 3 - 2px); margin: 0 -3px; }
+  .sp-card:first-child { --r: -4deg !important; --y: 14px !important; }   /* beat the inline fan values */
+  .sp-card:last-child { --r: 4deg !important; --y: 14px !important; }
+  .sp-face { padding: 14px 8px 12px; }
+  .sp-roman { font-size: 15px; }
+  .sp-name { font-size: 16px; }
+  .sp-arcana { display: none; }
+  .sp-price { font-size: 19px; }
+  .sp-card[aria-selected="true"], .sp-spread.dealt .sp-card[aria-selected="true"] { transform: translateY(-18px) scale(1.05); }
+  .sp-title { flex-direction: column; align-items: center; gap: 6px; }
 }
 
 /* ── HEADING STYLE (baked from the former "Intimate" tweak) ── */
@@ -1012,13 +1151,60 @@ h1, h2, h3, .section-title, .service-name, .philosophy-col-title {
       <div class="section-label" style="text-align:center;">Offerings</div>
       <h2 class="section-title center">Choose Your Reading</h2>
     </div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-card-img">
-          <img src="uploads/1.avif" width="846" height="504" loading="lazy" decoding="async" alt="" aria-hidden="true">
-        </div>
-        <h3 class="service-name">Clarity</h3>
-        <div class="service-price">€110</div>
+    <div class="sp-table">
+      <div class="sp-spread" role="tablist" aria-label="Readings">
+        <button class="sp-card" type="button" role="tab" id="sp-tab-clarity" aria-controls="sp-clarity" aria-selected="false" tabindex="-1"
+          style="--i:0;--r:-7deg;--y:22px;--from:100%">
+          <span class="sp-face">
+            <span class="sp-art"><img src="uploads/1.avif" width="846" height="504" loading="lazy" decoding="async" alt=""></span>
+            <span class="sp-roman" aria-hidden="true">XVII</span>
+            <svg class="sp-sigil" viewBox="0 0 80 80" aria-hidden="true">
+                <circle cx="40" cy="40" r="35"/>
+                <path d="M40.0 16.0L41.9 35.4L49.2 30.8L44.6 38.1L64.0 40.0L44.6 41.9L49.2 49.2L41.9 44.6L40.0 64.0L38.1 44.6L30.8 49.2L35.4 41.9L16.0 40.0L35.4 38.1L30.8 30.8L38.1 35.4Z"/>
+                <circle cx="58" cy="22" r="1.6"/><circle cx="22" cy="57" r="1.2"/>
+            </svg>
+            <span class="sp-name">Clarity<span class="sp-arcana">The Star</span></span>
+            <span class="sp-price">€110</span>
+          </span>
+          <span class="sp-dim" aria-hidden="true"></span>
+        </button>
+        <button class="sp-card" type="button" role="tab" id="sp-tab-sunlit" aria-controls="sp-sunlit" aria-selected="true" tabindex="0"
+          style="--i:1;--r:0deg;--y:0px;--from:0%">
+          <span class="sp-face">
+            <span class="sp-art"><img src="uploads/2.avif" width="846" height="504" loading="lazy" decoding="async" alt=""></span>
+            <span class="sp-roman" aria-hidden="true">XIX</span>
+            <svg class="sp-sigil" viewBox="0 0 80 80" aria-hidden="true">
+                <circle cx="40" cy="40" r="35"/>
+                <circle cx="40" cy="40" r="10"/>
+                <path d="M40 25V16M47.5 27L50 22.7M53 32.5L60.8 28M55 40H60M53 47.5L60.8 52M47.5 53L50 57.3M40 55V64M32.5 53L30 57.3M27 47.5L19.2 52M25 40H20M27 32.5L19.2 28M32.5 27L30 22.7"/>
+            </svg>
+            <span class="sp-name">Sunlit Sojourn<span class="sp-arcana">The Sun</span></span>
+            <span class="sp-price">€250</span>
+          </span>
+          <span class="sp-dim" aria-hidden="true"></span>
+        </button>
+        <button class="sp-card" type="button" role="tab" id="sp-tab-blueprint" aria-controls="sp-blueprint" aria-selected="false" tabindex="-1"
+          style="--i:2;--r:7deg;--y:22px;--from:-100%">
+          <span class="sp-face">
+            <span class="sp-art"><img src="uploads/3.avif" width="846" height="504" loading="lazy" decoding="async" alt=""></span>
+            <span class="sp-roman" aria-hidden="true">I</span>
+            <svg class="sp-sigil" viewBox="0 0 80 80" aria-hidden="true">
+                <circle cx="40" cy="40" r="35"/>
+                <path d="M40 22C45 15 53 15 53 22S45 29 40 22C35 15 27 15 27 22S35 29 40 22Z"/>
+                <path d="M40 33V57"/><circle cx="40" cy="31" r="2"/><circle cx="40" cy="59" r="2"/><path d="M27 64H53"/>
+            </svg>
+            <span class="sp-name">Divine Blueprint<span class="sp-arcana">The Magician</span></span>
+            <span class="sp-price">€400</span>
+          </span>
+          <span class="sp-dim" aria-hidden="true"></span>
+        </button>
+      </div>
+      <canvas class="sp-burst" aria-hidden="true"></canvas>
+    </div>
+    <div class="sp-readings">
+      <div class="sp-reading" id="sp-clarity" role="tabpanel" aria-labelledby="sp-tab-clarity">
+        <p class="sp-kicker"><b>XVII</b> · The Star</p>
+        <div class="sp-title"><h3 class="service-name">Clarity</h3><span class="service-price">€110</span></div>
         <div class="service-divider"></div>
         <p class="service-desc">A focused reading on a specific question or life area — love, career, finance, relationships, or beyond.</p>
         <div class="service-actions">
@@ -1026,13 +1212,9 @@ h1, h2, h3, .section-title, .service-name, .philosophy-col-title {
           <a href="https://www.checkout-ds24.com/product/540109" target="_blank" rel="noopener" class="btn-primary">Book Now</a>
         </div>
       </div>
-      <div class="service-card featured">
-        <div class="service-card-img" style="position:relative;">
-          <img src="uploads/2.avif" width="846" height="504" loading="lazy" decoding="async" alt="" aria-hidden="true">
-          <span class="featured-badge">Most popular</span>
-        </div>
-        <h3 class="service-name">Sunlit Sojourn</h3>
-        <div class="service-price">€250</div>
+      <div class="sp-reading" id="sp-sunlit" role="tabpanel" aria-labelledby="sp-tab-sunlit">
+        <p class="sp-kicker"><b>XIX</b> · The Sun · Most popular</p>
+        <div class="sp-title"><h3 class="service-name">Sunlit Sojourn</h3><span class="service-price">€250</span></div>
         <div class="service-divider"></div>
         <p class="service-desc">A year-ahead reading exploring external influences across all life areas, with guidance on how to navigate what’s coming.</p>
         <div class="service-actions">
@@ -1040,12 +1222,9 @@ h1, h2, h3, .section-title, .service-name, .philosophy-col-title {
           <a href="https://www.checkout-ds24.com/product/540824" target="_blank" rel="noopener" class="btn-primary">Book Now</a>
         </div>
       </div>
-      <div class="service-card">
-        <div class="service-card-img">
-          <img src="uploads/3.avif" width="846" height="504" loading="lazy" decoding="async" alt="" aria-hidden="true">
-        </div>
-        <h3 class="service-name">Divine Blueprint</h3>
-        <div class="service-price">€400</div>
+      <div class="sp-reading" id="sp-blueprint" role="tabpanel" aria-labelledby="sp-tab-blueprint">
+        <p class="sp-kicker"><b>I</b> · The Magician</p>
+        <div class="sp-title"><h3 class="service-name">Divine Blueprint</h3><span class="service-price">€400</span></div>
         <div class="service-divider"></div>
         <p class="service-desc">A deep blend of numerology and tarot — uncovering your innate gifts, the obstacles you were born to face, and where you stand today.</p>
         <div class="service-actions">
@@ -1307,7 +1486,9 @@ window.addEventListener('scroll', () => {
   navCta.classList.toggle('visible', pastHero);
 }, { passive: true });
 </script>
+<script src="assets/embers.js"></script>
 <script src="assets/guidance.js"></script>
+<script src="assets/offerings.js"></script>
 <script src="assets/hero/hero-config.js"></script>
 <script src="assets/hero/hero.js"></script>
 </body>
