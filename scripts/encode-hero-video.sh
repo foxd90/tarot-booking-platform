@@ -4,9 +4,12 @@
 #   scripts/encode-hero-video.sh path/to/new-video.mp4
 #
 # Writes into assets/hero/:
-#   hero-desktop.mp4  1920px wide, for screens wider than 760px
-#   hero-mobile.mp4   1280px wide, for phones
-#   hero-poster.jpg   first frame (1600px), shown while the video loads and for reduced motion
+#   hero-desktop.mp4  source width (max 2560px), for screens wider than 760px
+#   hero-mobile.mp4   1600px wide, for phones (they crop and enlarge a slice, so it needs the pixels)
+#   hero-poster.jpg   first frame (max 2560px), shown while the video loads and for reduced motion
+#
+# The stipple dots are fine noise that H.264 smears into blotches at normal settings, so this
+# uses -tune grain and a low CRF, and never downscales the desktop file (resampling blurs the dots).
 #
 # Needs ffmpeg (brew install ffmpeg). Audio is dropped; the hero video is always muted.
 # If the new video has a different framing, also repaint the wind map and re-check
@@ -19,13 +22,13 @@ mkdir -p "$out"
 
 encode() { # width crf output
   ffmpeg -y -loglevel error -i "$src" -an \
-    -vf "scale=$1:-2:flags=lanczos" \
-    -c:v libx264 -profile:v high -preset slow -crf "$2" -pix_fmt yuv420p \
+    -vf "scale='min(iw,$1)':-2:flags=lanczos" \
+    -c:v libx264 -profile:v high -preset slow -crf "$2" -tune grain -pix_fmt yuv420p \
     -movflags +faststart "$out/$3"
 }
 
-encode 1920 32 hero-desktop.mp4
-encode 1280 32 hero-mobile.mp4
-ffmpeg -y -loglevel error -i "$src" -vf "scale=1600:-2:flags=lanczos" -frames:v 1 -q:v 8 "$out/hero-poster.jpg"
+encode 2560 26 hero-desktop.mp4
+encode 1600 28 hero-mobile.mp4
+ffmpeg -y -loglevel error -i "$src" -vf "scale='min(iw,2560)':-2:flags=lanczos" -frames:v 1 -q:v 3 "$out/hero-poster.jpg"
 
 ls -lh "$out"/hero-desktop.mp4 "$out"/hero-mobile.mp4 "$out"/hero-poster.jpg
