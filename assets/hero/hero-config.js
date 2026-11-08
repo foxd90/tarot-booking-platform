@@ -38,7 +38,7 @@ window.HERO_CONFIG = {
 
   // leaves sway only where wind-map.png is white
   wind: {
-    strength: 8,      // peak movement, in pixels of a 2016px-wide frame
+    strength: 0,      // peak movement, in pixels of a 2016px-wide frame — PAUSED (was 8; set back to 8 to resume)
     speed: 1,
     rippleSize: 5,    // low = whole clusters move together, high = small busy ripples
     gustiness: 0.7,   // 0 = steady breeze, 1 = strong gusts with calm between
