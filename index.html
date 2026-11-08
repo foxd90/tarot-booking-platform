@@ -238,45 +238,175 @@ section {
 
 /* ── APPLICATIONS ── */
 #applications { background: var(--obsidian); }
-.applications-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
-  background: var(--bark);
-  border: 1px solid var(--bark);
-  border-radius: 4px;
-  overflow: hidden;
+/* Four cards dealt face down (assets/guidance.js); each turns over to show its reading. */
+.tr-wrap { position: relative; }
+.tr-deck {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px 24px;
 }
-.app-item {
-  background: var(--dark-earth);
-  padding: 40px 36px;
+.tr-slot {
+  flex: 0 0 calc((100% - 3 * 24px) / 4);
+  max-width: 230px;
+  perspective: 1400px;
+}
+/* Before the deal (set by guidance.js, so the cards still show without JS) */
+.tr-deck[data-deal] .tr-slot {
+  opacity: 0;
+  transform: translateY(32px) rotate(calc(var(--tilt) * -3));
+  transition: opacity 500ms ease-out, transform 700ms cubic-bezier(0.23, 1, 0.32, 1);
+  transition-delay: calc(var(--i) * 90ms);
+}
+.tr-deck[data-deal].dealt .tr-slot { opacity: 1; transform: rotate(var(--tilt)); }
+.tr-deck[data-deal].settled .tr-slot { transition-duration: 250ms; transition-delay: 0ms; }
+@media (hover: hover) and (pointer: fine) {
+  .tr-deck[data-deal].settled .tr-slot:hover { transform: rotate(0deg) translateY(-6px); }
+  .tr-slot:hover .tr-card::after { opacity: 1; }
+}
+.tr-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 8.4;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: scale 150ms ease-out;
+}
+.tr-card:active { scale: 0.96; }
+.tr-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.45), 0 0 28px rgba(216,185,122,0.16);
+  opacity: 0;
+  transition: opacity 250ms ease-out;
+  pointer-events: none;
+}
+.tr-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 650ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.tr-card[aria-expanded="true"] .tr-inner { transform: rotateY(180deg); }
+.tr-face {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: center;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: inset 0 0 0 1px var(--bark), 0 6px 18px rgba(0,0,0,0.35);
+  overflow: hidden;
 }
+.tr-face::before {   /* inner gilt frame */
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 5px;
+  pointer-events: none;
+}
+.tr-back {
+  justify-content: space-between;
+  padding: 22px 14px 24px;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(216,185,122,0.12), transparent 58%),
+    radial-gradient(rgba(216,185,122,0.08) 1px, transparent 1.5px) 0 0 / 12px 12px,
+    var(--dark-earth);
+}
+.tr-roman {
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+.tr-sigil {
+  width: 58%;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+}
+.tr-sigil .tr-fill { fill: var(--gold); stroke: none; }
+.tr-name, .tr-fname {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1.15;
+  color: var(--cream);
+  text-wrap: balance;
+}
+.tr-name {   /* two-line names don't lift the suit icon */
+  min-height: 2.3em;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.tr-front {
+  transform: rotateY(180deg);
+  justify-content: center;
+  gap: 10px;
+  padding: 22px 20px;
+  background: radial-gradient(circle at 50% 0%, rgba(216,185,122,0.10), transparent 60%), var(--dark-earth);
+}
+.tr-front .app-numeral { font-size: 34px; color: var(--gold); }
+.tr-rule { width: 28px; height: 1px; background: var(--gold-dim); }
+.tr-desc { font-size: 15px; line-height: 1.5; color: var(--sand); text-wrap: pretty; }
+.tr-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin: 28px auto 0;
+  padding: 0 18px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--text-label, 13px);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: color 150ms ease-out;
+}
+@media (hover: hover) and (pointer: fine) { .tr-all:hover { color: var(--gold-light); } }
+.tr-burst {
+  position: absolute;
+  inset: -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tr-deck[data-deal] .tr-slot, .tr-inner, .tr-card { transition: none; }
+}
+
 .app-numeral {
   font-family: var(--font-display);
-  color: var(--mist);
   font-size: 48px;
   font-weight: 300;
   color: var(--gold-dim);
   line-height: 1;
   letter-spacing: -0.04em;
-}
-.app-name {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--cream);
-  line-height: 1.2;
-}
-.app-desc {
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 300;
-  color: var(--sand);
-  line-height: 1.7;
-  max-width: 42ch;
+  font-variant-numeric: lining-nums tabular-nums; /* old-style "01" read as "OI" */
+  user-select: none;
 }
 
 /* ── SERVICES ── */
@@ -647,7 +777,7 @@ footer {
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
 
-  .applications-grid { grid-template-columns: 1fr; }
+  .tr-slot { flex-basis: calc((100% - 24px) / 2); }
   .services-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
 
@@ -675,12 +805,17 @@ footer {
 
 @media (max-width: 600px) {
   .section-inner { padding: 56px 20px; }
-  .app-item { padding: 28px 22px; }
+  .tr-deck { gap: 22px 14px; }
+  .tr-slot { flex-basis: calc((100% - 14px) / 2); }
+  .tr-name, .tr-fname { font-size: 19px; }
+  .tr-front { padding: 18px 14px; gap: 8px; }
+  .tr-front .app-numeral { font-size: 28px; }
+  .tr-desc { font-size: 14px; }
   .service-actions { flex-direction: column; }
 }
 
 /* ── HEADING STYLE (baked from the former "Intimate" tweak) ── */
-h1, h2, h3, .section-title, .service-name, .app-name, .philosophy-col-title {
+h1, h2, h3, .section-title, .service-name, .philosophy-col-title {
   font-style: italic !important;
   font-weight: 300 !important;
   letter-spacing: -0.01em !important; /* display sizes tighten slightly */
@@ -767,37 +902,105 @@ h1, h2, h3, .section-title, .service-name, .app-name, .philosophy-col-title {
 <section id="applications" style="overflow:hidden;">
   <div class="section-inner" style="position:relative;">
 
-    <div>
-      <div class="section-label">Guidance</div>
-      <h2 class="section-title">What Tarot Can Illuminate</h2>
+    <div style="text-align:center;">
+      <div class="section-label" style="text-align:center;">Guidance</div>
+      <h2 class="section-title center">What Tarot Can Illuminate</h2>
     </div>
-    <div class="applications-grid">
-      <div class="app-item">
-        <div class="app-numeral">01</div>
-        <h3 class="app-name">Decision-Making</h3>
-        <p class="app-desc">Navigate significant choices with clarity and informed perspective</p>
-      </div>
-      <div class="app-item">
-        <div class="app-numeral">02</div>
-        <h3 class="app-name">The Hidden Self</h3>
-        <p class="app-desc">Surface subconscious truths that shape your reality</p>
-      </div>
-      <div class="app-item">
-        <div class="app-numeral">03</div>
-        <h3 class="app-name">Inspiration</h3>
-        <p class="app-desc">Ignite creativity, reconnect with imagination and inner direction</p>
-      </div>
-      <div class="app-item">
-        <div class="app-numeral">04</div>
-        <h3 class="app-name">Breaking Through Resistance</h3>
-        <p class="app-desc">Uncover the fears quietly blocking your forward momentum</p>
-      </div>
-      <div class="app-item" style="grid-column: 1 / -1;">
-        <div class="app-numeral">05</div>
-        <h3 class="app-name">Soothing Anxiety</h3>
-        <p class="app-desc">Find stillness through personal empowerment and self-understanding</p>
-      </div>
+    <div class="tr-wrap">
+      <ol class="tr-deck" role="list">
+      <li class="tr-slot" style="--i:0;--tilt:-2deg">
+        <button class="tr-card" type="button" aria-expanded="false" aria-controls="tr-face-1">
+          <span class="tr-inner">
+            <span class="tr-face tr-back">
+              <span class="tr-roman" aria-hidden="true">I</span>
+              <svg class="tr-sigil" viewBox="0 0 80 80" aria-hidden="true">
+                <circle cx="40" cy="40" r="35"/>
+                <path d="M40 14L43.5 20V50H36.5V20Z"/><path d="M40 22V47"/>
+                <path d="M27 50H53M27 50Q24 50 24 47M53 50Q56 50 56 47"/>
+                <path d="M38 51V62H42V51"/><circle cx="40" cy="65" r="2.5"/>
+              </svg>
+              <span class="tr-name">Decision-Making</span>
+            </span>
+            <span class="tr-face tr-front" id="tr-face-1" aria-hidden="true">
+              <span class="app-numeral">01</span>
+              <span class="tr-fname" aria-hidden="true">Decision-Making</span>
+              <span class="tr-rule"></span>
+              <span class="tr-desc">Navigate significant choices with clarity and informed perspective</span>
+            </span>
+          </span>
+        </button>
+      </li>
+      <li class="tr-slot" style="--i:1;--tilt:1.4deg">
+        <button class="tr-card" type="button" aria-expanded="false" aria-controls="tr-face-2">
+          <span class="tr-inner">
+            <span class="tr-face tr-back">
+              <span class="tr-roman" aria-hidden="true">II</span>
+              <svg class="tr-sigil" viewBox="0 0 80 80" aria-hidden="true">
+                <circle cx="40" cy="40" r="35"/>
+                <path d="M27 21H53C53 35 47.5 42 40 42C32.5 42 27 35 27 21Z"/>
+                <path d="M30.5 27Q35 25 40 27T49.5 27"/>
+                <path d="M40 42V56"/><circle class="tr-fill" cx="40" cy="49" r="1.8"/>
+                <path d="M30 61Q40 53.5 50 61Z"/>
+              </svg>
+              <span class="tr-name">The Hidden Self</span>
+            </span>
+            <span class="tr-face tr-front" id="tr-face-2" aria-hidden="true">
+              <span class="app-numeral">02</span>
+              <span class="tr-fname" aria-hidden="true">The Hidden Self</span>
+              <span class="tr-rule"></span>
+              <span class="tr-desc">Surface subconscious truths that shape your reality</span>
+            </span>
+          </span>
+        </button>
+      </li>
+      <li class="tr-slot" style="--i:2;--tilt:-1deg">
+        <button class="tr-card" type="button" aria-expanded="false" aria-controls="tr-face-3">
+          <span class="tr-inner">
+            <span class="tr-face tr-back">
+              <span class="tr-roman" aria-hidden="true">III</span>
+              <svg class="tr-sigil" viewBox="0 0 80 80" aria-hidden="true">
+                <circle cx="40" cy="40" r="35"/>
+                <path d="M24.6 63.2L52.6 15.2M27.4 64.8L55.4 16.8M24.6 63.2L27.4 64.8M52.6 15.2L55.4 16.8"/>
+                <path d="M47.5 28Q40.5 28 38.5 23Q44.5 22 47.5 28Z"/>
+                <path d="M44.5 36Q50.5 35 52.5 30Q46.5 30 44.5 36Z"/>
+                <path d="M36.5 47Q29.5 46 28.5 41Q34.5 41 36.5 47Z"/>
+              </svg>
+              <span class="tr-name">Breaking Through Resistance</span>
+            </span>
+            <span class="tr-face tr-front" id="tr-face-3" aria-hidden="true">
+              <span class="app-numeral">03</span>
+              <span class="tr-fname" aria-hidden="true">Breaking Through Resistance</span>
+              <span class="tr-rule"></span>
+              <span class="tr-desc">Uncover the fears quietly blocking your forward momentum</span>
+            </span>
+          </span>
+        </button>
+      </li>
+      <li class="tr-slot" style="--i:3;--tilt:1.8deg">
+        <button class="tr-card" type="button" aria-expanded="false" aria-controls="tr-face-4">
+          <span class="tr-inner">
+            <span class="tr-face tr-back">
+              <span class="tr-roman" aria-hidden="true">IV</span>
+              <svg class="tr-sigil" viewBox="0 0 80 80" aria-hidden="true">
+                <circle cx="40" cy="40" r="35"/>
+                <circle cx="40" cy="40" r="19"/>
+                <path d="M40 23.5L49.7 53.35L24.3 34.9H55.7L30.3 53.35Z"/>
+              </svg>
+              <span class="tr-name">Soothing Anxiety</span>
+            </span>
+            <span class="tr-face tr-front" id="tr-face-4" aria-hidden="true">
+              <span class="app-numeral">04</span>
+              <span class="tr-fname" aria-hidden="true">Soothing Anxiety</span>
+              <span class="tr-rule"></span>
+              <span class="tr-desc">Find stillness through personal empowerment and self-understanding</span>
+            </span>
+          </span>
+        </button>
+      </li>
+      </ol>
+      <canvas class="tr-burst" aria-hidden="true"></canvas>
     </div>
+    <button class="tr-all" type="button">Turn all four over</button>
   </div>
   <div class="section-divider"></div>
 </section>
@@ -1104,6 +1307,7 @@ window.addEventListener('scroll', () => {
   navCta.classList.toggle('visible', pastHero);
 }, { passive: true });
 </script>
+<script src="assets/guidance.js"></script>
 <script src="assets/hero/hero-config.js"></script>
 <script src="assets/hero/hero.js"></script>
 </body>
