@@ -51,3 +51,14 @@ Keep the video muted, ideally a seamless loop, and roughly 2:1 landscape.
 - Reduced motion: the scene holds still (no wind, embers or lantern; a few fireflies).
 - Without WebGL the plain video plays, without wind.
 - The main nav hides while the hero is on screen and slides in once you scroll past it.
+
+## Design decisions
+
+**Hero header + menu — decided 2026-11-08 from a 4-way prototype**
+- Brand: logo + "Cawa Liss" with a small-caps "Tarot · Berlin" line beneath (gold, 11px, 0.32em tracking; 10px on phones).
+- Menu (desktop): links hang on a thin gold vertical thread; each has a 9px star node (gold ring on obsidian)
+  that fills gold-light, scales to 1.35 and glows on hover/focus (200ms ease-out). No divider line above.
+- Menu button (phones): three glowing 4px dots in a diagonal "constellation" instead of a hamburger.
+- Not chosen (with the costs noted when they were compared): Roman-numeral index I/II/III (suggests an order
+  the links don't have); orbiting-moon ring around the logo (another moving element beside fireflies and embers);
+  framed glass card panel (boxes in the scene, reads most "website"); the plain original (adds little to the mood).

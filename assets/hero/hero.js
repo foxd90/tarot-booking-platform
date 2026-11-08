@@ -461,14 +461,36 @@ void main() {
 
   // ── main nav: hidden while the hero (with its own brand and links) is on screen ──
   const nav = document.getElementById('main-nav');
+  const heroTop = hero.querySelector('.hero-top');
+  // the open menu starts right under whichever header is showing: the hero's logo row, or the nav
+  function placeMenu() {
+    const top = nav && nav.classList.contains('over-hero') && heroTop
+      ? Math.max(0, heroTop.getBoundingClientRect().bottom + 8)
+      : 72;
+    document.documentElement.style.setProperty('--menu-top', top + 'px');
+  }
   if (nav) {
-    const placeNav = () => nav.classList.toggle('over-hero', scrollY < hero.offsetHeight * 0.85);
+    const placeNav = () => {
+      nav.classList.toggle('over-hero', scrollY < hero.offsetHeight * 0.85);
+      placeMenu();
+    };
     addEventListener('scroll', placeNav, { passive: true });
+    addEventListener('resize', placeMenu);
     placeNav();
   }
   const menuBtn = hero.querySelector('.hero-menu-btn');
   const navMenuBtn = document.getElementById('hamburger');
-  if (menuBtn && navMenuBtn) menuBtn.addEventListener('click', () => navMenuBtn.click());
+  if (menuBtn && navMenuBtn) {
+    menuBtn.addEventListener('click', () => navMenuBtn.click());
+    // mirror the real menu button's open state (drives the star X and screen readers)
+    const syncMenuState = () => {
+      menuBtn.setAttribute('aria-expanded', navMenuBtn.getAttribute('aria-expanded') || 'false');
+      menuBtn.setAttribute('aria-label', navMenuBtn.getAttribute('aria-label') || 'Open menu');
+      placeMenu();
+    };
+    new MutationObserver(syncMenuState).observe(navMenuBtn, { attributes: true, attributeFilter: ['aria-expanded'] });
+    syncMenuState();
+  }
 
   // ── start ──
   if (reducedMotion) {

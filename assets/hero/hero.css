@@ -14,8 +14,8 @@
   max-height: 900px;
   overflow: hidden;
   isolation: isolate;
-  /* warms from obsidian into dark-earth so the next section has no seam */
-  background: linear-gradient(to bottom, var(--obsidian) 0%, var(--obsidian) 60%, var(--dark-earth) 100%);
+  /* same black as the section below, so the video fades straight into it */
+  background: var(--obsidian);
 }
 
 /* ── video + WebGL layer ── */
@@ -23,6 +23,9 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  /* decorative: pointer events fall through to #hero, which handles taps on the fire */
+  pointer-events: none;
+  user-select: none;
   --fade-mask: linear-gradient(to bottom,
     #000 0%, #000 72%,
     rgba(0,0,0,0.9) 78%,
@@ -117,6 +120,14 @@
   text-decoration: none;
 }
 .hero-brand img { height: 56px; width: auto; filter: drop-shadow(0 0 18px rgba(201,169,108,0.45)); }
+.hero-brand-text { display: flex; flex-direction: column; gap: 2px; }
+.hero-brand-sub {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
 .hero-menu-btn { display: none; }
 .hero-body {
   margin-block: auto;
@@ -148,32 +159,121 @@
   text-decoration: none;
   padding: 18px 40px;
   border-radius: 2px;
-  transition: background 0.3s var(--ease);
+  transition-property: background-color, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
 }
 @media (hover: hover) and (pointer: fine) { .btn-gold:hover { background: var(--gold-light); } }
-.btn-gold:active { transform: scale(0.98); }
+.btn-gold:active { transform: scale(0.96); }
+/* star chart: the links hang on a thin gold thread, each marked by a star that lights on hover */
 .hero-links {
-  border-top: 1px solid var(--gold-dim);
-  padding-top: 32px;
+  position: relative;
+  padding-top: 4px;
+  padding-left: 28px;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 3px;
 }
+.hero-links::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 26px;
+  bottom: 22px;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(201,169,108,0.5), rgba(201,169,108,0.15));
+}
+/* 12px padding top and bottom gives each link a 44px target */
 .hero-links a {
+  position: relative;
+  display: inline-block;
+  padding-block: 12px;
   font-family: var(--font-body);
   font-size: 14px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--sand);
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 150ms ease-out;
 }
-@media (hover: hover) and (pointer: fine) { .hero-links a:hover { color: var(--gold-light); } }
+.hero-links a::before {
+  content: "";
+  position: absolute;
+  left: -28px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin-top: -4.5px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: var(--obsidian);
+  transition-property: transform, background-color, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+.hero-links a:focus-visible::before { background: var(--gold-light); box-shadow: 0 0 12px 3px rgba(226,201,138,0.5); }
+@media (hover: hover) and (pointer: fine) {
+  .hero-links a:hover { color: var(--gold-light); }
+  .hero-links a:hover::before { transform: scale(1.35); background: var(--gold-light); box-shadow: 0 0 12px 3px rgba(226,201,138,0.5); }
+}
 
 /* main nav stays out of the way while the hero (which has its own brand + links) is on screen */
 nav#main-nav { transition: transform 0.4s var(--ease), background 0.4s var(--ease), backdrop-filter 0.4s var(--ease), border-color 0.4s var(--ease); }
-nav#main-nav.over-hero:not(.menu-open) { transform: translateY(-100%); }
+nav#main-nav.over-hero { transform: translateY(-100%); }
+
+/* open menu: a dimmed, blurred layer over the whole page below the header.
+   --menu-top is set by hero.js: under the hero's logo row, or under the nav once scrolled. */
+.mobile-menu { top: var(--menu-top, 72px); }
+.mobile-menu.open { bottom: 0; background: rgba(14,11,9,0.9); }
+
+/* ── star menu button (hero + main nav): three stars on a diagonal;
+      opened, two more appear on the other diagonal and the five form an X ── */
+.hero-menu-btn,
+nav#main-nav .hamburger {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.hero-menu-btn span,
+nav#main-nav .hamburger span,
+.hero-menu-btn::before,
+.hero-menu-btn::after,
+nav#main-nav .hamburger::before,
+nav#main-nav .hamburger::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: var(--cream);
+  box-shadow: 0 0 6px 1px rgba(240,228,204,0.6), 0 0 8px 1px rgba(14,11,9,0.9);
+  opacity: 1;
+  transition-property: transform, opacity;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hero-menu-btn span:nth-child(1), nav#main-nav .hamburger span:nth-child(1) { transform: translate(-6px, -8px); }
+.hero-menu-btn span:nth-child(2), nav#main-nav .hamburger span:nth-child(2) { transform: none; }
+.hero-menu-btn span:nth-child(3), nav#main-nav .hamburger span:nth-child(3) { transform: translate(6px, 8px); }
+.hero-menu-btn::before, nav#main-nav .hamburger::before { transform: translate(7px, -7px) scale(0); opacity: 0; }
+.hero-menu-btn::after, nav#main-nav .hamburger::after { transform: translate(-7px, 7px) scale(0); opacity: 0; }
+.hero-menu-btn[aria-expanded="true"] span:nth-child(1),
+nav#main-nav .hamburger[aria-expanded="true"] span:nth-child(1) { transform: translate(-7px, -7px); }
+.hero-menu-btn[aria-expanded="true"] span:nth-child(3),
+nav#main-nav .hamburger[aria-expanded="true"] span:nth-child(3) { transform: translate(7px, 7px); }
+.hero-menu-btn[aria-expanded="true"]::before,
+nav#main-nav .hamburger[aria-expanded="true"]::before { transform: translate(7px, -7px); opacity: 1; }
+.hero-menu-btn[aria-expanded="true"]::after,
+nav#main-nav .hamburger[aria-expanded="true"]::after { transform: translate(-7px, 7px); opacity: 1; }
 
 /* ── phones ── */
 @media (max-width: 760px) {
@@ -202,22 +302,11 @@ nav#main-nav.over-hero:not(.menu-open) { transform: translateY(-100%); }
     max-height: none;
     padding: max(16px, env(safe-area-inset-top)) 20px max(40px, env(safe-area-inset-bottom));
   }
-  .hero-brand { gap: 12px; font-size: 20px; text-shadow: 0 0 12px rgba(14,11,9,0.95), 0 0 24px rgba(14,11,9,0.8); }
+  .hero-brand { min-height: 44px; gap: 12px; font-size: 20px; text-shadow: 0 0 12px rgba(14,11,9,0.95), 0 0 24px rgba(14,11,9,0.8); }
   .hero-brand img { height: 40px; filter: drop-shadow(0 0 10px rgba(14,11,9,0.95)) drop-shadow(0 0 18px rgba(201,169,108,0.35)); }
   .hero-top { display: flex; align-items: center; justify-content: space-between; }
-  .hero-menu-btn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    width: 44px;
-    height: 44px;
-    background: none;
-    border: 0;
-    cursor: pointer;
-  }
-  .hero-menu-btn span { display: block; width: 22px; height: 1px; background: var(--cream); box-shadow: 0 0 8px 1px rgba(14,11,9,0.95); }
+  .hero-menu-btn { display: block; }
+  .hero-brand-sub { font-size: 10px; letter-spacing: 0.28em; }
   .hero-body { margin-top: auto; margin-bottom: 0; gap: 28px; }
   #hero .hero-heading { font-size: clamp(44px, 13vw, 60px); text-align: center; text-shadow: 0 2px 24px rgba(14,11,9,0.85); }
   .btn-gold { align-self: stretch; text-align: center; padding: 18px 20px; }
@@ -235,4 +324,8 @@ nav#main-nav.over-hero:not(.menu-open) { transform: translateY(-100%); }
 
 @media (prefers-reduced-motion: reduce) {
   nav#main-nav { transition: none; }
+  .btn-gold:active { transform: none; }
+  .hero-menu-btn span, nav#main-nav .hamburger span,
+  .hero-menu-btn::before, .hero-menu-btn::after,
+  nav#main-nav .hamburger::before, nav#main-nav .hamburger::after { transition: none; }
 }
