@@ -1,0 +1,238 @@
+/* hero.css — homepage hero scene: video jungle, fireflies, wind, lantern, embers.
+   Values that are tuned (tint, grain, fades) come in as custom properties set by hero.js
+   from hero-config.js; the defaults here only matter before the script runs. */
+
+#hero {
+  --tint: 0.1;
+  --grain: 0.01;
+  --fade-start: 65%;
+  --top-start: 0.05;
+  --top-len: 29%;
+  --focus-x: 83%;
+  position: relative;
+  min-height: 100svh;
+  max-height: 900px;
+  overflow: hidden;
+  isolation: isolate;
+  /* warms from obsidian into dark-earth so the next section has no seam */
+  background: linear-gradient(to bottom, var(--obsidian) 0%, var(--obsidian) 60%, var(--dark-earth) 100%);
+}
+
+/* ── video + WebGL layer ── */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  --fade-mask: linear-gradient(to bottom,
+    #000 0%, #000 72%,
+    rgba(0,0,0,0.9) 78%,
+    rgba(0,0,0,0.7) 84%,
+    rgba(0,0,0,0.45) 89%,
+    rgba(0,0,0,0.22) 94%,
+    rgba(0,0,0,0.07) 98%,
+    transparent 100%);
+  -webkit-mask-image: var(--fade-mask);
+  mask-image: var(--fade-mask);
+}
+.hero-media video,
+.hero-media canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: sepia(var(--tint)) saturate(1.15) brightness(0.92);
+}
+.hero-media video { object-fit: cover; object-position: 68% 50%; }
+#hero.gl-on .hero-media video { opacity: 0; }
+
+/* desktop: shade behind the text column, lifted where the lantern shines */
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(14,11,9,0.96) 0%,
+    rgba(14,11,9,0.9) 18%,
+    rgba(14,11,9,0.65) 30%,
+    rgba(14,11,9,0.3) 40%,
+    rgba(14,11,9,0.08) 50%,
+    rgba(14,11,9,0) 58%);
+  -webkit-mask-image: radial-gradient(circle var(--lr, 260px) at var(--lx, -999px) var(--ly, -999px),
+    rgba(0,0,0,calc(1 - var(--lon, 0) * var(--lreveal, 0.25))) 0%,
+    rgba(0,0,0,calc(1 - var(--lon, 0) * var(--lreveal, 0.25))) 30%, #000 100%);
+  mask-image: radial-gradient(circle var(--lr, 260px) at var(--lx, -999px) var(--ly, -999px),
+    rgba(0,0,0,calc(1 - var(--lon, 0) * var(--lreveal, 0.25))) 0%,
+    rgba(0,0,0,calc(1 - var(--lon, 0) * var(--lreveal, 0.25))) 30%, #000 100%);
+}
+
+/* ── overlays: grain, lantern, fireflies + embers ── */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: var(--grain);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero-lantern { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; }
+.hero-lantern-dim {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle var(--lr, 260px) at var(--lx, 50%) var(--ly, 50%),
+    rgba(14,11,9,0) 0%, rgba(14,11,9,0) 30%, rgba(14,11,9,var(--ldim, 0.05)) 100%);
+  /* the fire is a light source: never darken it */
+  -webkit-mask-image: radial-gradient(circle 170px at var(--fx, -999px) var(--fy, -999px), transparent 0%, transparent 35%, #000 100%);
+  mask-image: radial-gradient(circle 170px at var(--fx, -999px) var(--fy, -999px), transparent 0%, transparent 35%, #000 100%);
+}
+.hero-lantern-glow {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: overlay;
+  background: radial-gradient(circle calc(var(--lr, 260px) * 0.85) at var(--lx, 50%) var(--ly, 50%),
+    rgba(244,196,120,var(--lwarm, 0)) 0%, rgba(226,170,90,calc(var(--lwarm, 0) * 0.45)) 45%, rgba(226,170,90,0) 100%);
+}
+.hero-sparks { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+
+/* ── content ── */
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  max-height: 900px;
+  width: min(460px, 38vw);
+  padding: 48px 0 56px 72px;
+  display: flex;
+  flex-direction: column;
+}
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+  text-decoration: none;
+}
+.hero-brand img { height: 56px; width: auto; filter: drop-shadow(0 0 18px rgba(201,169,108,0.45)); }
+.hero-menu-btn { display: none; }
+.hero-body {
+  margin-block: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+/* upright Cormorant, unlike the italic headings elsewhere on the page */
+#hero .hero-heading {
+  font-family: var(--font-display);
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: clamp(48px, 5.2vw, 84px);
+  line-height: 1.02;
+  letter-spacing: -0.01em !important;
+  color: var(--cream);
+  text-wrap: balance;
+}
+.btn-gold {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--gold);
+  color: var(--obsidian);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 18px 40px;
+  border-radius: 2px;
+  transition: background 0.3s var(--ease);
+}
+@media (hover: hover) and (pointer: fine) { .btn-gold:hover { background: var(--gold-light); } }
+.btn-gold:active { transform: scale(0.98); }
+.hero-links {
+  border-top: 1px solid var(--gold-dim);
+  padding-top: 32px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.hero-links a {
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sand);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+@media (hover: hover) and (pointer: fine) { .hero-links a:hover { color: var(--gold-light); } }
+
+/* main nav stays out of the way while the hero (which has its own brand + links) is on screen */
+nav#main-nav { transition: transform 0.4s var(--ease), background 0.4s var(--ease), backdrop-filter 0.4s var(--ease), border-color 0.4s var(--ease); }
+nav#main-nav.over-hero:not(.menu-open) { transform: translateY(-100%); }
+
+/* ── phones ── */
+@media (max-width: 760px) {
+  .hero-media {
+    bottom: auto;
+    height: 78svh;
+    /* short top fade so the logo + menu sit on near-black, then the long bottom fade */
+    --fade-mask: linear-gradient(to bottom,
+      rgba(0,0,0,var(--top-start)) 0%,
+      rgba(0,0,0,calc(var(--top-start) + (1 - var(--top-start)) * 0.18)) calc(var(--top-len) * 0.26),
+      rgba(0,0,0,calc(var(--top-start) + (1 - var(--top-start)) * 0.5)) calc(var(--top-len) * 0.53),
+      rgba(0,0,0,calc(var(--top-start) + (1 - var(--top-start)) * 0.83)) calc(var(--top-len) * 0.79),
+      #000 var(--top-len), #000 var(--fade-start),
+      rgba(0,0,0,0.88) calc(var(--fade-start) + 5%),
+      rgba(0,0,0,0.66) calc(var(--fade-start) + 11%),
+      rgba(0,0,0,0.42) calc(var(--fade-start) + 17%),
+      rgba(0,0,0,0.2) calc(var(--fade-start) + 23%),
+      rgba(0,0,0,0.06) calc(var(--fade-start) + 29%),
+      transparent calc(var(--fade-start) + 34%));
+  }
+  .hero-media video { object-position: var(--focus-x) 50%; }
+  .hero-media::after { display: none; }
+  #hero { max-height: none; }
+  .hero-inner {
+    width: 100%;
+    max-height: none;
+    padding: max(16px, env(safe-area-inset-top)) 20px max(40px, env(safe-area-inset-bottom));
+  }
+  .hero-brand { gap: 12px; font-size: 20px; text-shadow: 0 0 12px rgba(14,11,9,0.95), 0 0 24px rgba(14,11,9,0.8); }
+  .hero-brand img { height: 40px; filter: drop-shadow(0 0 10px rgba(14,11,9,0.95)) drop-shadow(0 0 18px rgba(201,169,108,0.35)); }
+  .hero-top { display: flex; align-items: center; justify-content: space-between; }
+  .hero-menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .hero-menu-btn span { display: block; width: 22px; height: 1px; background: var(--cream); box-shadow: 0 0 8px 1px rgba(14,11,9,0.95); }
+  .hero-body { margin-top: auto; margin-bottom: 0; gap: 28px; }
+  #hero .hero-heading { font-size: clamp(44px, 13vw, 60px); text-align: center; text-shadow: 0 2px 24px rgba(14,11,9,0.85); }
+  .btn-gold { align-self: stretch; text-align: center; padding: 18px 20px; }
+  .hero-links { display: none; }
+}
+
+/* ── tune mode (?tune): paint the wind map ── */
+#hero.painting { touch-action: none; cursor: none; }
+#hero.painting .hero-inner { pointer-events: none; opacity: 0.15; }
+#hero.painting .hero-media { -webkit-mask-image: none; mask-image: none; }
+#hero.painting .hero-media::after,
+#hero.painting .hero-sparks,
+#hero.painting .hero-grain,
+#hero.painting .hero-lantern { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  nav#main-nav { transition: none; }
+}
