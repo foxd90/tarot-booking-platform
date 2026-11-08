@@ -109,10 +109,10 @@ h1, h2, h3, .hero-headline, .sold-title { text-wrap: balance; }
 }
 
 /* ── TYPE: leading, measure, wrapping ── */
-.body-text, .about-text p, .service-desc, .app-desc, .addon-text, .delivery-list li,
+.body-text, .about-text p, .service-desc, .addon-text, .delivery-list li,
 .philosophy-list li, .testimonial-quote, .sold-sub { line-height: 1.6; }
 .body-text { max-width: 65ch; }
-.service-desc, .app-desc, .hero-sub, .hero-subtitle, .sold-sub, .testimonial-quote, .addon-text {
+.service-desc, .hero-sub, .hero-subtitle, .sold-sub, .testimonial-quote, .addon-text {
   text-wrap: pretty;
 }
 
@@ -156,7 +156,7 @@ h1, h2, h3, .hero-headline, .sold-title { text-wrap: balance; }
   font-weight: 400;
 }
 
-.service-desc, .app-desc, .delivery-list li, .addon-text, .required-block p, .thanks p,
+.service-desc, .delivery-list li, .addon-text, .required-block p, .thanks p,
 .section p, .section ul li {
   font-size: var(--text-desc);
   font-weight: 400;
@@ -181,7 +181,7 @@ h1, h2, h3, .hero-headline, .sold-title { text-wrap: balance; }
 .section-heading { font-size: clamp(32px, 4vw, 48px); }
 .service-name, .philosophy-col-title { font-size: 32px; }
 .contact-title { font-size: 34px; }
-.app-name, .info-card-name { font-size: 26px; }
+.info-card-name { font-size: 26px; }
 .area-name, .blueprint-name, .blueprint-num, .nav-logo-name { font-size: 22px; }
 .testimonial-quote, .example-item, .note-block p { font-size: 20px; }
 .service-price { font-size: 44px; }
